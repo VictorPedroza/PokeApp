@@ -1,0 +1,38 @@
+<header class="bg-zinc-50 shadow-sm border-b border-black/20 flex items-center justify-between px-4 py-2 relative">
+    <div routerLink="/" class="flex gap-2 items-center justify-center cursor-pointer">
+        <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/500px-Pokebola-pokeball-png-0.png" 
+            alt="Pokeball Logo"
+            class="w-12 h-auto">
+        <h1 class="text-3xl font-bold">
+            Poke<span class="text-red-500">App</span>
+        </h1>
+    </div>
+
+    <nav class="hidden md:flex items-center justify-center">
+        <ul class="flex gap-6 text-xl font-medium">
+            <li routerLink="" class="cursor-pointer hover:underline hover:text-zinc-900/70">Home</li>
+            <li routerLink="pokedex" class="cursor-pointer hover:underline hover:text-zinc-900/70">Pokedex</li>
+            <li routerLink="quiz" class="cursor-pointer hover:underline hover:text-zinc-900/70">Quiz</li>
+            <li routerLink="team-builder" class="cursor-pointer hover:underline hover:text-zinc-900/70">Meu Time</li>
+        </ul>
+    </nav>
+
+    <div class="md:hidden">
+        <button 
+            (click)="toggleMenu()"
+            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
+            {{ isMenuOpen ? 'Fechar' : 'Menu' }}
+        </button>
+    </div>
+
+    <div *ngIf="isMenuOpen" 
+         class="absolute top-full left-0 w-full bg-zinc-50 border-b border-black/20 z-50 md:hidden animate-in slide-in-from-top duration-300">
+        <ul class="flex flex-col p-4 gap-4 text-lg font-medium">
+            <li (click)="toggleMenu()" routerLink="/" class="cursor-pointer hover:underline hover:text-zinc-900/70">Home</li>
+            <li (click)="toggleMenu()" routerLink="/pokedex" class="cursor-pointer hover:underline hover:text-zinc-900/70">Pokedex</li>
+            <li (click)="toggleMenu()" routerLink="/quiz" class="cursor-pointer hover:underline hover:text-zinc-900/70">Quiz</li>
+            <li (click)="toggleMenu()" routerLink="/team-builder" class="cursor-pointer hover:underline hover:text-zinc-900/70">Meu Time</li>
+        </ul>
+    </div>
+</header>
