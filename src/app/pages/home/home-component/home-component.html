@@ -1,1 +1,69 @@
-<p>home-component works!</p>
+<main class="min-h-screen bg-slate-50 p-4 md:p-8 font-sans">
+  <section
+    class="relative w-full h-80 bg-gray-900 rounded-3xl mb-12 flex items-center justify-center overflow-hidden border-4 border-red-500 shadow-2xl"
+  >
+    <img
+      src="https://images.alphacoders.com/132/1326462.jpeg"
+      alt="Lendário em Destaque"
+      class="absolute w-full h-full object-cover opacity-50 scale-105 hover:scale-100 transition-transform duration-700"
+    />
+    <div
+      class="relative z-10 text-center px-4 py-6 bg-black/40 backdrop-blur-md rounded-2xl border border-white/20"
+    >
+      <h1 class="text-4xl md:text-5xl font-black text-red-600 uppercase tracking-tighter shadow-sm">
+        PokeApp
+      </h1>
+      <h2 class="text-xl md:text-2xl font-bold text-white mt-2">Evento: Desafio Lendário!</h2>
+      <p class="text-gray-200 mt-1">Sua jornada começa agora. Prove seu valor no Quiz.</p>
+      <button
+        class="mt-4 px-6 py-2 bg-red-500 hover:bg-red-400 text-black font-bold rounded-full transition-colors cursor-pointer"
+        routerLink="quiz"
+      >
+        Participar Agora
+      </button>
+    </div>
+  </section>
+
+  <!-- Cards de Navegação -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16">
+    <div
+      *ngFor="let item of navItens"
+      [routerLink]="item.link"
+      [class]="
+        'group bg-white p-6 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 border-b-8 transition-all cursor-pointer ' +
+        item.color
+      "
+    >
+      <div class="text-4xl mb-4 group-hover:scale-110 transition-transform">{{ item.icon }}</div>
+      <h2 class="text-2xl font-bold text-gray-800">{{ item.title }}</h2>
+      <p class="text-gray-500 mt-2">{{ item.desc }}</p>
+    </div>
+  </section>
+
+  <!-- Destaques da Semana -->
+  <section class="max-w-6xl mx-auto">
+    <h3 class="text-3xl font-extrabold text-gray-900 mb-6">Destaques da Semana</h3>
+    <div class="flex space-x-6 overflow-x-auto pb-8 snap-x">
+      <div
+        *ngFor="let poke of featuredPokemon"
+        class="flex-none w-64 bg-linear-to-b rounded-3xl p-6 shadow-sm border border-gray-100 snap-center transition hover:scale-105"
+        [ngClass]="poke.color + ' to-white'"
+      >
+        <img
+          [src]="getUrlImage(poke.id)"
+          class="w-40 h-40 mx-auto mb-4 drop-shadow-lg"
+          [alt]="poke.name"
+        />
+        <h4 class="text-center font-bold text-xl text-gray-800">{{ poke.name }}</h4>
+        <div class="flex justify-center gap-2 mt-2">
+          <span
+            *ngFor="let type of poke.types"
+            [ngClass]="'text-[10px] font-bold px-2 py-1 rounded-md ' + type.color"
+          >
+            {{ type.name }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
