@@ -1,9 +1,7 @@
 <div class="container mx-auto px-4 py-8">
   <!-- Header -->
   <div class="text-center mb-8">
-    <h1 class="text-5xl font-bold text-red-500 mb-2">
-      Pokédex
-    </h1>
+    <h1 class="text-5xl font-bold text-red-500 mb-2">Pokédex</h1>
     <p class="text-gray-600">Explore o mundo Pokémon!</p>
   </div>
 
@@ -20,13 +18,18 @@
 
   <!-- Contador -->
   <div class="text-center text-sm text-gray-500 mb-4">
-    Mostrando {{ filteredPokemons.length }} de {{ pokemons.length }} Pokémon
+    Mostrando {{ filteredPokemons.length }} de {{ totalPokemons }} Pokémon
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-12">
+    <div class="text-gray-400 text-lg animate-pulse">Carregando Pokémon...</div>
   </div>
 
   <!-- Grid de Pokémon -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+  <div *ngIf="!isLoading" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
 
-    <!-- Pokémon -->
+    <!-- Card Pokémon -->
     <div
       *ngFor="let pokemon of filteredPokemons"
       class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer hover:transform hover:-translate-y-2 hover:shadow-2xl"
@@ -45,9 +48,7 @@
         </div>
       </div>
       <div class="p-4">
-        <h3 class="text-lg font-bold text-center mb-2 capitalize">
-          {{ pokemon.name }}
-        </h3>
+        <h3 class="text-lg font-bold text-center mb-2 capitalize">{{ pokemon.name }}</h3>
         <div class="flex gap-2 justify-center">
           <span
             *ngFor="let type of pokemon.types"
@@ -82,6 +83,44 @@
         <p class="text-sm text-gray-400 mt-2">Tente outro nome ou número</p>
       </div>
     </div>
+  </div>
+
+  <!-- Paginação -->
+  <div *ngIf="!isLoading && !error && totalPages > 1"
+    class="flex items-center justify-center gap-2 mt-10 flex-wrap">
+
+    <!-- Anterior -->
+    <button
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="px-4 py-2 rounded-full border-2 font-semibold transition-all
+             disabled:opacity-40 disabled:cursor-not-allowed
+             border-gray-300 hover:border-red-400 hover:text-red-500">
+      ←
+    </button>
+
+    <!-- Números -->
+    <ng-container *ngFor="let page of pages">
+      <span *ngIf="page === -1" class="px-2 text-gray-400">…</span>
+      <button
+        *ngIf="page !== -1"
+        (click)="goToPage(page)"
+        [class]="page === currentPage
+          ? 'px-4 py-2 rounded-full bg-red-500 text-white font-bold shadow-md'
+          : 'px-4 py-2 rounded-full border-2 border-gray-300 hover:border-red-400 hover:text-red-500 font-semibold transition-all'">
+        {{ page }}
+      </button>
+    </ng-container>
+
+    <!-- Próximo -->
+    <button
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="px-4 py-2 rounded-full border-2 font-semibold transition-all
+             disabled:opacity-40 disabled:cursor-not-allowed
+             border-gray-300 hover:border-red-400 hover:text-red-500">
+      →
+    </button>
   </div>
 
   <!-- Modal de Detalhes -->
