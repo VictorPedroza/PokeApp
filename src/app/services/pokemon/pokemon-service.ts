@@ -33,4 +33,10 @@ export class PokemonService {
       }),
     );
   }
+
+  getRandomPokemons(count: number): Observable<Pokemon[]> {
+    const randomIds = Array.from({ length: count }, () => Math.floor(Math.random() * 898) + 1);
+    const requests = randomIds.map((id) => this.http.get<Pokemon>(`${this.apiUrl}/pokemon/${id}`));
+    return forkJoin(requests as Observable<Pokemon>[]).pipe(catchError(() => of([])));
+  }
 }
