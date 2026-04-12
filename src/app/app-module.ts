@@ -8,6 +8,7 @@ import { PokedexComponent } from './pages/pokedex/pokedex-component/pokedex-comp
 import { TeamBuilderComponent } from './pages/team-builder/team-builder-component/team-builder-component';
 import { QuizComponent } from './pages/quiz/quiz-component/quiz-component';
 import { SharedModule } from './shared/shared-module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { SharedModule } from './shared/shared-module';
     TeamBuilderComponent,
     QuizComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, SharedModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })
