@@ -39,4 +39,10 @@ export class PokemonService {
     const requests = randomIds.map((id) => this.http.get<Pokemon>(`${this.apiUrl}/pokemon/${id}`));
     return forkJoin(requests as Observable<Pokemon>[]).pipe(catchError(() => of([])));
   }
+
+  searchPokemon(term: string): Observable<Pokemon | null> {
+  return this.http.get<Pokemon>(`${this.apiUrl}/pokemon/${term.toLowerCase()}`).pipe(
+    catchError(() => of(null))
+  );
+}
 }
