@@ -1,1 +1,93 @@
-<p>quiz-component works!</p>
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-yellow-500 mb-1">Quem é esse Pokémon❓</h1>
+    <p class="text-gray-500">Teste seus conhecimentos!</p>
+  </div>
+
+  <!-- Progresso -->
+  <div *ngIf="state !== 'finished'" class="mb-6">
+    <div class="flex justify-between text-sm text-gray-500 mb-1">
+      <span>Questão {{ currentQuestion + 1 }} de {{ totalQuestions }}</span>
+      <span>Pontos: {{ score }}</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+      <div
+        class="bg-yellow-400 h-2 rounded-full transition-all duration-500"
+        [style.width]="((currentQuestion) / totalQuestions * 100) + '%'"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-16">
+    <div class="text-gray-400 text-lg animate-pulse">Carregando Pokémon...</div>
+  </div>
+
+  <!-- Quiz -->
+  <div *ngIf="!isLoading && round && state !== 'finished'">
+
+    <!-- Silhueta / Imagem -->
+    <div class="bg-linear-to-br from-gray-100 to-gray-200 rounded-2xl p-8 mb-6 text-center shadow-inner">
+      <img
+        [src]="round.correct.sprites.front_default"
+        [alt]="state === 'playing' ? '???' : round.correct.name"
+        class="w-48 h-48 object-contain mx-auto transition-all duration-500"
+        [class.brightness-0]="state === 'playing'"
+      >
+      <p class="mt-3 text-lg font-bold text-gray-700">
+        <span *ngIf="state === 'playing'">???</span>
+        <span *ngIf="state !== 'playing'" class="capitalize">{{ round.correct.name }}</span>
+      </p>
+    </div>
+
+    <!-- Feedback -->
+    <div *ngIf="state === 'correct'" class="bg-green-100 border border-green-300 rounded-xl px-5 py-3 mb-4 text-center text-green-700 font-semibold">
+      ✅ Correto! É o <span class="capitalize">{{ round.correct.name }}</span>!
+    </div>
+    <div *ngIf="state === 'wrong'" class="bg-red-100 border border-red-300 rounded-xl px-5 py-3 mb-4 text-center text-red-700 font-semibold">
+      ❌ Errado! Era o <span class="capitalize">{{ round.correct.name }}</span>.
+    </div>
+
+    <!-- Opções -->
+    <div class="grid grid-cols-2 gap-3 mb-6">
+      <button
+        *ngFor="let option of round.options"
+        (click)="selectAnswer(option)"
+        [disabled]="round.selectedId !== null"
+        class="border-2 rounded-xl px-4 py-3 font-semibold capitalize transition-all duration-200"
+        [class]="getOptionClass(option)"
+      >
+        {{ option.name }}
+      </button>
+    </div>
+
+    <!-- Próximo -->
+    <div *ngIf="state !== 'playing'" class="text-center">
+      <button
+        (click)="next()"
+        class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold px-10 py-3 rounded-full shadow-lg transition-all"
+      >
+        {{ currentQuestion + 1 >= totalQuestions ? 'Ver Resultado' : 'Próximo →' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Resultado Final -->
+  <div *ngIf="state === 'finished'" class="text-center py-8">
+    <div class="bg-white rounded-2xl shadow-xl p-10">
+      <div class="text-6xl mb-4">🏅</div>
+      <h2 class="text-3xl font-bold mb-2">Resultado</h2>
+      <p class="text-6xl font-bold text-yellow-500 mb-2">{{ score }}<span class="text-2xl text-gray-400">/{{ totalQuestions }}</span></p>
+      <p class="text-gray-600 text-lg mb-8">{{ scoreMessage }}</p>
+      <button
+        (click)="startQuiz()"
+        class="bg-red-500 hover:bg-red-600 text-white font-bold px-10 py-3 rounded-full shadow-lg transition-all"
+      >
+        🔄 Jogar Novamente
+      </button>
+    </div>
+  </div>
+
+</div>
