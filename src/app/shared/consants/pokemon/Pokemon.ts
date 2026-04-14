@@ -11,3 +11,8 @@ export interface Pokemon {
   };
   stats: { base_stat: number; stat: { name: string } }[];
 }
+
+export interface PokemonPage {
+  pokemons: Pokemon[];
+  total: number;
+}
