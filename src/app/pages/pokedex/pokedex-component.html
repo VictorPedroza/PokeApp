@@ -1,0 +1,77 @@
+<div class="container mx-auto px-4 py-8">
+  <!-- Mensagem de Início -->
+  <div class="text-center mb-8">
+    <h1 class="text-5xl font-bold text-red-500 mb-2">Pokédex</h1>
+    <p class="text-gray-600">Explore o mundo Pokémon!</p>
+  </div>
+
+  <!-- Caixa de Busca -->
+  <div class="max-w-2xl mx-auto mb-8">
+    <input
+      type="text"
+      #searchInput
+      (input)="searchTerm = searchInput.value; onSearch()"
+      placeholder="🔍 Pesquisar Pokémon por nome ou número..."
+      class="w-full px-6 py-3 rounded-full border-2 border-gray-200 focus:border-red-400 focus:outline-none transition-colors shadow-lg"
+    />
+  </div>
+
+  <!-- Resumo de Carregamento -->
+  <div class="text-center text-sm text-gray-500 mb-4">
+    Mostrando {{ filteredPokemons.length }} de {{ totalPokemons }} Pokémon
+  </div>
+  <div *ngIf="isLoading" class="text-center py-12">
+    <div class="text-gray-400 text-lg animate-pulse">Carregando Pokémon...</div>
+  </div>
+
+  <!-- Layout de Card de Pokemons -->
+  <div
+    *ngIf="!isLoading"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+  > 
+    <!-- Card dos Pokemons carregados -->
+    <app-pokemon-card
+      *ngFor="let pokemon of filteredPokemons"
+      [pokemon]="pokemon"
+      (selected)="onSelect($event)"
+    />
+
+    <!-- Mensagem de Erro (Se houver) -->
+    <div *ngIf="error" class="col-span-full text-center py-12">
+      <div class="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
+        <div class="text-red-500 text-6xl mb-4">😢</div>
+        <h3 class="text-xl font-bold text-red-700 mb-2">Ops! Algo deu errado</h3>
+        <p class="text-gray-600 mb-4">{{ error }}</p>
+        <button
+          (click)="retryLoad()"
+          class="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-full transition-colors"
+        >
+          Tentar Novamente
+        </button>
+      </div>
+    </div>
+
+    <!-- Mensagem de Erro (Erro Esperado) -->
+    <div
+      *ngIf="!error && filteredPokemons.length === 0 && pokemons.length > 0"
+      class="col-span-full text-center py-12"
+    >
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-8 max-w-md mx-auto">
+        <p class="text-gray-500 text-lg">Nenhum Pokémon encontrado 😢</p>
+        <p class="text-sm text-gray-400 mt-2">Tente outro nome ou número</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Componente de Paginação -->
+  <app-pokemon-pagination
+    *ngIf="!isLoading && !error && totalPages > 1"
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [pages]="pages"
+    (pageChange)="onPageChange($event)"
+  />
+
+  <!-- Modal de Informações do Pokemon -->
+  <app-pokemon-modal *ngIf="selectedPokemon" [pokemon]="selectedPokemon" (closed)="onClose()" />
+</div>
