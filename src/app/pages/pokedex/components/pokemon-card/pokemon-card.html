@@ -1,0 +1,28 @@
+<div
+  class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 cursor-pointer hover:transform hover:-translate-y-2 hover:shadow-2xl"
+  (click)="selected.emit(pokemon)"
+>
+  <div class="relative bg-linear-to-br from-gray-50 to-gray-100 p-4">
+    <img
+      [src]="pokemon.sprites.front_default"
+      [alt]="pokemon.name"
+      class="w-40 h-40 object-contain mx-auto transition-transform duration-300 hover:scale-110"
+      loading="lazy"
+    >
+    <div class="absolute top-2 right-2 bg-black/60 rounded-full px-2 py-1">
+      <span class="text-white text-xs font-bold">#{{ pokemon.id | number:'3.0-0' }}</span>
+    </div>
+  </div>
+  <div class="p-4">
+    <h3 class="text-lg font-bold text-center mb-2 capitalize">{{ pokemon.name }}</h3>
+    <div class="flex gap-2 justify-center">
+      <span
+        *ngFor="let type of pokemon.types"
+        class="px-3 py-1 rounded-full text-white text-xs font-semibold shadow-md"
+        [style.backgroundColor]="getColorType(type.type.name)"
+      >
+        {{ type.type.name | titlecase }}
+      </span>
+    </div>
+  </div>
+</div>

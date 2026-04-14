@@ -1,0 +1,83 @@
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4"
+  (click)="closed.emit()"
+>
+  <div class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+
+  <div
+    class="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+      <div>
+        <h2 class="text-2xl font-bold capitalize">{{ pokemon.name }}</h2>
+        <p class="text-gray-500">#{{ pokemon.id | number:'3.0-0' }}</p>
+      </div>
+      <button (click)="closed.emit()" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+    </div>
+
+    <div class="p-6">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="text-center">
+          <div class="bg-linear-to-br from-gray-50 to-gray-100 rounded-2xl p-6 mb-4">
+            <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-64 h-64 object-contain mx-auto">
+          </div>
+          <div class="flex gap-2 justify-center">
+            <span
+              *ngFor="let type of pokemon.types"
+              class="px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md"
+              [style.backgroundColor]="getColorType(type.type.name)"
+            >
+              {{ type.type.name | titlecase }}
+            </span>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-blue-50 rounded-lg p-3 text-center">
+              <p class="text-gray-600 text-sm">Altura</p>
+              <p class="text-xl font-bold">{{ pokemon.height / 10 }} m</p>
+            </div>
+            <div class="bg-green-50 rounded-lg p-3 text-center">
+              <p class="text-gray-600 text-sm">Peso</p>
+              <p class="text-xl font-bold">{{ pokemon.weight / 10 }} kg</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-2">Habilidades</h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                *ngFor="let ability of pokemon.abilities"
+                class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm"
+              >
+                {{ ability.ability.name | titlecase }}
+                <span *ngIf="ability.is_hidden" class="text-xs ml-1">(Oculta)</span>
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-3">Status Base</h3>
+            <div class="space-y-2">
+              <div *ngFor="let stat of pokemon.stats">
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="capitalize">{{ stat.stat.name }}</span>
+                  <span class="font-bold">{{ stat.base_stat }}</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    class="h-2 rounded-full transition-all duration-500"
+                    [style.width]="getStatBarWidth(stat.base_stat)"
+                    [class]="stat.base_stat > 100 ? 'bg-green-500' : 'bg-blue-500'"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

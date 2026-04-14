@@ -1,0 +1,31 @@
+<div class="flex items-center justify-center gap-2 mt-10 flex-wrap">
+  <button
+    (click)="pageChange.emit(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    class="px-4 py-2 rounded-full border-2 font-semibold transition-all
+           disabled:opacity-40 disabled:cursor-not-allowed
+           border-gray-300 hover:border-red-400 hover:text-red-500">
+    ←
+  </button>
+
+  <ng-container *ngFor="let page of pages">
+    <span *ngIf="page === -1" class="px-2 text-gray-400">…</span>
+    <button
+      *ngIf="page !== -1"
+      (click)="pageChange.emit(page)"
+      [class]="page === currentPage
+        ? 'px-4 py-2 rounded-full bg-red-500 text-white font-bold shadow-md'
+        : 'px-4 py-2 rounded-full border-2 border-gray-300 hover:border-red-400 hover:text-red-500 font-semibold transition-all'">
+      {{ page }}
+    </button>
+  </ng-container>
+
+  <button
+    (click)="pageChange.emit(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    class="px-4 py-2 rounded-full border-2 font-semibold transition-all
+           disabled:opacity-40 disabled:cursor-not-allowed
+           border-gray-300 hover:border-red-400 hover:text-red-500">
+    →
+  </button>
+</div>
