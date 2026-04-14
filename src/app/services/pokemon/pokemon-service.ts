@@ -41,8 +41,8 @@ export class PokemonService {
   }
 
   searchPokemon(term: string): Observable<Pokemon | null> {
-  return this.http.get<Pokemon>(`${this.apiUrl}/pokemon/${term.toLowerCase()}`).pipe(
-    catchError(() => of(null))
-  );
-}
+    return this.http
+      .get<Pokemon>(`${this.apiUrl}/pokemon/${term.toLowerCase()}`)
+      .pipe(catchError(() => of(null)));
+  }
 }
