@@ -3,26 +3,51 @@ import { Pokemon } from '../../shared/consants/pokemon/Pokemon';
 import { PokemonSearchService } from './services/pokemon-search';
 import { PokemonService } from '../../services/pokemon/pokemon-service';
 
+/**
+ * Componente responsável por exibir a pokedex
+ *
+ * Gerencia:
+ * - Listagem de Pokemons (Com paginação)
+ * - Busca por Nome e ID.
+ * - Seleção do Pokemon (Para exibir o Modal)
+ * - Controle de Carregamento e Erro
+ **/
 @Component({
   selector: 'app-pokedex',
   standalone: false,
   templateUrl: './pokedex-component.html',
 })
 export class PokedexComponent implements OnInit {
+  /** Lista de pokemons carregados na página atual */
   pokemons: Pokemon[] = [];
+  /** Lista filtrada usada na renderização */
   filteredPokemons: Pokemon[] = [];
+  /** Termo digitado na busca */
   searchTerm = '';
+  /** Mensagem de erro da API ou Busca */
   error: string | null = null;
+  /** Pokemon selecionado (Exibição no Modal) */
   selectedPokemon: Pokemon | null = null;
+  /** Indica carregamento da página */
   isLoading = false;
+  /** Página atual */
   currentPage = 1;
+  /** Quantidade de pokemons por página */
   itemsPerPage = 20;
+  /** Quantidade de pokemons na API */
   totalPokemons = 0;
 
+  /**
+   * Número total de páginas baseada no total de pokemons
+   **/
   get totalPages(): number {
     return Math.ceil(this.totalPokemons / this.itemsPerPage);
   }
 
+  /**
+   * Ger alista de páginas para paginação
+   *
+   **/
   get pages(): number[] {
     const delta = 2;
     const range: number[] = [];
@@ -46,6 +71,16 @@ export class PokedexComponent implements OnInit {
     this.loadPokemons();
   }
 
+  /**
+   * Garrega os Pokemons da API baseado na página atual
+   *
+   * Atualiza:
+   * - Lista de Pokemons
+   * - Estado de Carregamento
+   * - Total de Registros
+   * - Tratamento de Erros
+   *
+   **/
   loadPokemons() {
     this.error = null;
     this.isLoading = true;
@@ -67,6 +102,18 @@ export class PokedexComponent implements OnInit {
     });
   }
 
+  /**
+   * Realiza busca de pokemons utilizando o serviço de busca
+   *
+   * A busca é feita:
+   * - Filtragem da Página atual
+   * - Fallback de busca na API
+   *
+   * Atualiza:
+   * - Lista filtrada
+   * - Mensagem de Erro
+   * - Estado de carreamento
+   **/
   onSearch() {
     this.isLoading = true;
     this.error = null;
@@ -86,6 +133,14 @@ export class PokedexComponent implements OnInit {
     });
   }
 
+  /**
+   * Muda a página da Pokédex e recarrega os dados da API.
+   *
+   * Regras:
+   * - Ignora páginas inválidas
+   * - Reseta busca ao trocar página
+   * - Rola a tela para o topo
+   **/
   onPageChange(page: number) {
     if (page < 1 || page > this.totalPages || page === this.currentPage) return;
     this.currentPage = page;
@@ -94,17 +149,23 @@ export class PokedexComponent implements OnInit {
     this.loadPokemons();
   }
 
+  /**
+   * Seleciona um Pokémon e abre o modal de detalhes.
+   *
+   * Também bloqueia o scroll da página.
+   **/
   onSelect(pokemon: Pokemon) {
     this.selectedPokemon = pokemon;
     document.body.style.overflow = 'hidden';
   }
 
+  /**
+   * Fecha o modal de detalhes do Pokémon.
+   *
+   * Restaura o scroll da página.
+   **/
   onClose() {
     this.selectedPokemon = null;
     document.body.style.overflow = 'auto';
-  }
-
-  retryLoad() {
-    this.loadPokemons();
   }
 }
