@@ -1,0 +1,108 @@
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+  <ng-container *ngIf="!quizStarted">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-yellow-400 mb-1">Quem é esse Pokémon❓</h1>
+      <p class="text-gray-500 text-sm">Escolha o nível e teste seus conhecimentos!</p>
+    </div>
+
+    <div *ngIf="quizService.sessionScore > 0" class="text-center mb-4">
+      <span
+        class="inline-block bg-indigo-50 border border-indigo-200 text-indigo-600 font-bold text-sm px-4 py-1 rounded-full"
+      >
+        🎯 Pontos na sessão: {{ quizService.sessionScore }}
+      </span>
+    </div>
+
+    <app-quiz-level-selector-component
+      [selected]="quizService.level"
+      (levelChange)="onLevelChange($event)"
+    ></app-quiz-level-selector-component>
+
+    <div class="text-center mt-4">
+      <button
+        (click)="startQuiz()"
+        class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold px-12 py-3 rounded-full shadow-lg transition-all"
+      >
+        🎮 Iniciar Quiz
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="quizStarted && quizService.state !== 'finished'">
+    <app-quiz-header
+      [currentQuestion]="quizService.currentQuestion"
+      [totalQuestions]="quizService.totalQuestions"
+      [score]="quizService.score"
+      [sessionScore]="quizService.sessionScore"
+    ></app-quiz-header>
+
+    <div class="flex justify-end mb-3">
+      <button
+        (click)="quit()"
+        class="text-xs text-gray-400 hover:text-red-500 border border-gray-200 hover:border-red-300 rounded-full px-4 py-1 transition-all"
+      >
+        🏳️ Desistir
+      </button>
+    </div>
+
+    <div *ngIf="quizService.isLoading" class="text-center py-16">
+      <p class="text-gray-400 text-lg animate-pulse">Carregando Pokémon...</p>
+    </div>
+
+    <ng-container *ngIf="!quizService.isLoading && quizService.round">
+      <app-quiz-card-component
+        [spriteUrl]="quizService.round.correct.sprites.front_default"
+        [pokemonName]="quizService.round.correct.name"
+        [revealed]="quizService.state !== 'playing'"
+        [blurStep]="quizService.round.blurStep"
+        [hasBlur]="quizService.levelConfig.hasBlur"
+        [canRequestHint]="quizService.canRequestHint"
+        (hintRequested)="quizService.requestHint()"
+      ></app-quiz-card-component>
+
+      <app-quiz-feedback-component
+        [state]="quizService.state"
+        [pokemonName]="quizService.round.correct.name"
+        [pointsEarned]="
+          quizService.roundHistory[quizService.roundHistory.length - 1]?.pointsEarned ?? 0
+        "
+      ></app-quiz-feedback-component>
+
+      <app-quiz-option-component
+        *ngIf="quizService.levelConfig.hasOptions"
+        [options]="quizService.round.options"
+        [correctId]="quizService.round.correct.id"
+        [selectedId]="quizService.round.selectedId"
+        (optionSelected)="onOptionSelected($event)"
+      ></app-quiz-option-component>
+
+      <app-quiz-free-input-component
+        *ngIf="!quizService.levelConfig.hasOptions"
+        [answered]="quizService.state !== 'playing'"
+        (submitted)="onFreeAnswer($event)"
+      ></app-quiz-free-input-component>
+
+      <div *ngIf="quizService.state !== 'playing'" class="text-center mt-2">
+        <button
+          (click)="onNext()"
+          class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold px-10 py-3 rounded-full shadow-lg transition-all"
+        >
+          {{
+            quizService.currentQuestion + 1 >= quizService.totalQuestions
+              ? 'Ver Resultado'
+              : 'Próximo →'
+          }}
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <app-quiz-result-component
+    *ngIf="quizService.state === 'finished'"
+    [score]="quizService.score"
+    [maxScore]="quizService.totalQuestions * 35"
+    [scoreMessage]="quizService.scoreMessage"
+    [isNewHighScore]="quizService.isNewHighScore"
+    (restart)="onRestart()"
+  ></app-quiz-result-component>
+</div>
