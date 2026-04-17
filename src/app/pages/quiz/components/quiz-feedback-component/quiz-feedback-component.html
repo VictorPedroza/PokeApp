@@ -1,0 +1,22 @@
+<div
+  *ngIf="state === 'correct' || state === 'wrong'"
+  class="rounded-xl px-5 py-3 mb-4 text-center font-semibold text-sm"
+  [class.bg-green-50]="state === 'correct'"
+  [class.border]="true"
+  [class.border-green-300]="state === 'correct'"
+  [class.text-green-700]="state === 'correct'"
+  [class.bg-red-50]="state === 'wrong'"
+  [class.border-red-300]="state === 'wrong'"
+  [class.text-red-700]="state === 'wrong'"
+>
+  <ng-container *ngIf="state === 'correct'">
+    ✅ Correto! É o <strong class="capitalize">{{ pokemonName }}</strong>!
+    <span
+      *ngIf="pointsEarned > 0"
+      class="ml-2 text-xs bg-green-100 text-green-800 font-bold px-2 py-0.5 rounded-full"
+    >+{{ pointsEarned }} pts</span>
+  </ng-container>
+  <ng-container *ngIf="state === 'wrong'">
+    ❌ Errado! Era o <strong class="capitalize">{{ pokemonName }}</strong>.
+  </ng-container>
+</div>

@@ -1,0 +1,19 @@
+<div class="bg-linear-to-br from-gray-100 to-gray-200 rounded-2xl p-8 mb-6 text-center shadow-inner">
+  <img
+    [src]="spriteUrl"
+    [alt]="revealed ? pokemonName : '???'"
+    class="w-48 h-48 object-contain mx-auto transition-all duration-600"
+    [style.filter]="imageFilter"
+  />
+  <p class="mt-3 text-lg font-bold text-gray-700 capitalize">
+    <span *ngIf="!revealed">???</span>
+    <span *ngIf="revealed">{{ pokemonName }}</span>
+  </p>
+  <button
+    *ngIf="showHintButton"
+    (click)="hintRequested.emit()"
+    class="mt-2 text-xs text-gray-400 border border-dashed border-gray-300 rounded-full px-4 py-1 hover:border-yellow-400 hover:text-yellow-500 transition-all"
+  >
+    🔍 Revelar um pouco (perde bônus)
+  </button>
+</div>

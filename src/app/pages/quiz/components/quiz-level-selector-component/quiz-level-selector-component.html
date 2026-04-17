@@ -1,0 +1,21 @@
+<div class="mb-6">
+  <p class="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Escolha o nível</p>
+  <div class="grid grid-cols-3 gap-3">
+    <button
+      *ngFor="let opt of levelOptions"
+      (click)="select(opt.value)"
+      class="flex flex-col items-center gap-1 py-3 px-2 rounded-2xl border-2 transition-all duration-200"
+      [class.border-yellow-400]="selected === opt.value"
+      [class.bg-yellow-50]="selected === opt.value"
+      [class.shadow-md]="selected === opt.value"
+      [class.border-gray-200]="selected !== opt.value"
+      [class.bg-white]="selected !== opt.value"
+      [class.hover:border-yellow-300]="selected !== opt.value"
+    >
+      <span class="text-2xl">{{ opt.emoji }}</span>
+      <span class="font-bold text-sm text-gray-800">{{ opt.label }}</span>
+      <span class="text-xs text-gray-400 text-center leading-tight">{{ opt.description }}</span>
+      <span class="text-xs font-bold text-yellow-500 mt-1">+{{ opt.basePoints }} pts</span>
+    </button>
+  </div>
+</div>

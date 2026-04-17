@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { QuizHeaderComponent } from './quiz-header-component';
+
+describe('QuizHeaderComponent', () => {
+  let component: QuizHeaderComponent;
+  let fixture: ComponentFixture<QuizHeaderComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [QuizHeaderComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(QuizHeaderComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

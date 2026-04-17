@@ -1,0 +1,17 @@
+<div class="flex gap-2 mb-6">
+  <input
+    type="text"
+    placeholder="Digite o nome do Pokémon..."
+    [(ngModel)]="answer"
+    [disabled]="answered"
+    (keydown.enter)="!answered && submit()"
+    class="flex-1 border-2 border-gray-200 focus:border-yellow-400 rounded-xl px-4 py-3 text-sm outline-none transition-colors lowercase disabled:bg-gray-50 disabled:text-gray-400"
+  />
+  <button
+    [disabled]="answered || !answer.trim()"
+    (click)="submit()"
+    class="bg-yellow-400 hover:bg-yellow-500 disabled:opacity-40 text-white font-bold rounded-xl px-5 py-3 transition-all whitespace-nowrap"
+  >
+    Confirmar
+  </button>
+</div>

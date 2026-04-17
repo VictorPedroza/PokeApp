@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { QuizResultComponent } from './quiz-result-component';
+
+describe('QuizResultComponent', () => {
+  let component: QuizResultComponent;
+  let fixture: ComponentFixture<QuizResultComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [QuizResultComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(QuizResultComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
