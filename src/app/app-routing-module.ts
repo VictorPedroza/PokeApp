@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './pages/home/home-component/home-component';
-import { TeamBuilderComponent } from './pages/team-builder/team-builder-component/team-builder-component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,7 +13,11 @@ const routes: Routes = [
     path: 'quiz',
     loadChildren: () => import('./pages/quiz/quiz-module').then((m) => m.QuizModule),
   },
-  { path: 'team-builder', component: TeamBuilderComponent },
+  {
+    path: 'team-builder',
+    loadChildren: () =>
+      import('./pages/team-builder/team-builder-module').then((m) => m.TeamBuilderModule),
+  },
 ];
 
 @NgModule({
