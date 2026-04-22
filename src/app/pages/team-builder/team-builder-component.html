@@ -1,0 +1,305 @@
+<!-- team-builder-component.html -->
+<div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+
+    <!-- ── Header ── -->
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-extrabold text-red-500 mb-1 tracking-tight">⚔️ Team Builder</h1>
+      <p class="text-gray-400 font-medium">Monte o time perfeito para sua jornada</p>
+    </div>
+
+    <!-- ── Barra de ações ── -->
+    <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
+      <div class="flex items-center gap-2">
+        <div class="flex gap-1">
+          <span
+            *ngFor="let p of teamService.team"
+            class="w-3 h-3 rounded-full transition-all"
+            [class.bg-red-400]="p !== null"
+            [class.bg-gray-200]="p === null"
+          ></span>
+        </div>
+        <span class="text-sm text-gray-500 font-semibold">
+          {{ teamService.teamCount }}/6 Pokémon
+        </span>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <button
+          (click)="onClearTeam()"
+          [disabled]="teamService.teamCount === 0"
+          class="px-4 py-2 rounded-full border-2 border-gray-200 text-gray-500 font-bold text-sm
+                 hover:border-red-300 hover:text-red-500 transition-all
+                 disabled:opacity-30 disabled:cursor-not-allowed"
+        >🗑️ Limpar</button>
+        <button
+          (click)="showLoadModal = true"
+          class="px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-bold text-sm
+                 hover:border-blue-300 hover:text-blue-500 transition-all"
+        >📂 Carregar</button>
+        <button
+          (click)="showSaveModal = true"
+          [disabled]="teamService.teamCount === 0"
+          class="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-bold text-sm
+                 shadow-md shadow-red-200 transition-all
+                 disabled:opacity-30 disabled:cursor-not-allowed"
+        >💾 Salvar Time</button>
+      </div>
+    </div>
+
+    <!-- ── Grid de slots ── -->
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 mb-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div
+          *ngFor="let pokemon of teamService.team; let i = index"
+          (click)="onSlotClicked(i)"
+          class="relative rounded-2xl border-2 cursor-pointer transition-all duration-200 overflow-hidden min-h-35"
+          [class.border-yellow-400]="selectedSlot === i && pokemon"
+          [class.border-red-400]="selectedSlot === i && !pokemon"
+          [class.shadow-lg]="selectedSlot === i"
+          [class.border-dashed]="!pokemon && selectedSlot !== i"
+          [class.border-gray-200]="!pokemon && selectedSlot !== i"
+          [class.border-solid]="!!pokemon && selectedSlot !== i"
+          [class.hover:border-red-300]="selectedSlot !== i"
+        >
+          <!-- Slot vazio -->
+          <div *ngIf="!pokemon" class="flex flex-col items-center justify-center h-full py-8 px-4 text-gray-300">
+            <span class="text-5xl mb-2 leading-none">＋</span>
+            <span class="text-xs font-semibold tracking-widest uppercase">Slot {{ i + 1 }}</span>
+            <span *ngIf="selectedSlot === i" class="text-red-400 text-xs mt-2 font-bold animate-pulse">● Selecionado</span>
+          </div>
+          <!-- Pokémon preenchido -->
+          <div *ngIf="pokemon" class="bg-linear-to-br from-gray-50 to-gray-100 p-3 h-full">
+            <button
+              (click)="$event.stopPropagation(); onPokemonRemoved(i)"
+              class="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full
+                     text-xs flex items-center justify-center font-bold z-10 transition-colors shadow"
+            >✕</button>
+            <p class="text-xs text-gray-300 font-bold text-right pr-7">#{{ pokemon.id | number:'3.0-0' }}</p>
+            <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="w-20 h-20 object-contain mx-auto -mt-1" />
+            <p class="text-center text-sm font-extrabold capitalize mt-1 text-gray-800 truncate">{{ pokemon.name }}</p>
+            <div class="flex gap-1 justify-center mt-1.5 flex-wrap">
+              <span
+                *ngFor="let type of pokemon.types"
+                class="px-2 py-0.5 rounded-full text-white text-xs font-bold"
+                [style.backgroundColor]="getTypeColor(type.type.name)"
+              >{{ type.type.name | titlecase }}</span>
+            </div>
+            <span *ngIf="selectedSlot === i" class="block text-center text-yellow-500 text-xs mt-1.5 font-bold">✏️ Substituir</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Painel de busca (aparece quando slot selecionado) ── -->
+    <div *ngIf="selectedSlot !== null" class="bg-white rounded-3xl shadow-sm border border-red-100 p-6 mb-6">
+      <h3 class="font-extrabold text-lg mb-4 text-gray-700">
+        🔍 Buscar Pokémon para o Slot {{ selectedSlot + 1 }}
+      </h3>
+
+      <!-- Tabs -->
+      <div class="flex gap-2 mb-4">
+        <button
+          (click)="setSearchMode('name')"
+          class="flex-1 py-2 rounded-xl text-sm font-bold transition-all"
+          [class.bg-red-500]="searchMode === 'name'"
+          [class.text-white]="searchMode === 'name'"
+          [class.bg-gray-100]="searchMode !== 'name'"
+          [class.text-gray-500]="searchMode !== 'name'"
+        >🔍 Por Nome</button>
+        <button
+          (click)="setSearchMode('type')"
+          class="flex-1 py-2 rounded-xl text-sm font-bold transition-all"
+          [class.bg-red-500]="searchMode === 'type'"
+          [class.text-white]="searchMode === 'type'"
+          [class.bg-gray-100]="searchMode !== 'type'"
+          [class.text-gray-500]="searchMode !== 'type'"
+        >🏷️ Por Tipo</button>
+      </div>
+
+      <!-- Input por nome -->
+      <div *ngIf="searchMode === 'name'">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="onNameInput()"
+          placeholder="Digite o nome ou número do Pokémon..."
+          class="w-full px-5 py-3 rounded-full border-2 border-gray-200 focus:border-red-400
+                 focus:outline-none transition-colors shadow-sm mb-4"
+          autofocus
+        />
+      </div>
+
+      <!-- Grid de tipos -->
+      <div *ngIf="searchMode === 'type'" class="mb-4">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          <button
+            *ngFor="let type of pokemonTypes"
+            (click)="selectType(type)"
+            class="py-1.5 px-2 rounded-xl text-white text-xs font-bold transition-all capitalize"
+            [style.backgroundColor]="getTypeColor(type)"
+            [class.opacity-40]="selectedType !== null && selectedType !== type"
+            [class.ring-2]="selectedType === type"
+            [class.ring-offset-1]="selectedType === type"
+            [class.ring-white]="selectedType === type"
+          >{{ type }}</button>
+        </div>
+      </div>
+
+      <!-- Buscando -->
+      <div *ngIf="isSearching" class="text-center py-6 text-gray-400 animate-pulse">
+        <p class="text-2xl mb-1">⏳</p>
+        <p class="text-sm">Buscando Pokémon...</p>
+      </div>
+
+      <!-- Erro -->
+      <div *ngIf="searchError && !isSearching" class="text-center py-6 text-gray-400">
+        <p class="text-2xl mb-1">😢</p>
+        <p class="text-sm">Pokémon não encontrado.</p>
+      </div>
+
+      <!-- Resultados por nome -->
+      <div *ngIf="!isSearching && searchResults.length > 0 && searchMode === 'name'" class="space-y-2">
+        <div
+          *ngFor="let result of searchResults"
+          (click)="!isPokemonInTeam(result) && addToTeam(result)"
+          class="flex items-center gap-4 p-3 rounded-2xl border-2 transition-all"
+          [class.border-gray-100]="!isPokemonInTeam(result)"
+          [class.hover:border-red-300]="!isPokemonInTeam(result)"
+          [class.hover:bg-red-50]="!isPokemonInTeam(result)"
+          [class.cursor-pointer]="!isPokemonInTeam(result)"
+          [class.opacity-50]="isPokemonInTeam(result)"
+          [class.cursor-not-allowed]="isPokemonInTeam(result)"
+        >
+          <img [src]="result.sprites.front_default" [alt]="result.name" class="w-16 h-16 object-contain shrink-0" />
+          <div class="flex-1 min-w-0">
+            <p class="font-extrabold capitalize text-gray-800">{{ result.name }}</p>
+            <p class="text-gray-400 text-xs">#{{ result.id | number:'3.0-0' }}</p>
+            <div class="flex gap-1 mt-1 flex-wrap">
+              <span
+                *ngFor="let type of result.types"
+                class="px-2 py-0.5 rounded-full text-white text-xs font-bold"
+                [style.backgroundColor]="getTypeColor(type.type.name)"
+              >{{ type.type.name | titlecase }}</span>
+            </div>
+          </div>
+          <span *ngIf="isPokemonInTeam(result)" class="text-xs text-gray-400 font-medium shrink-0">Já no time</span>
+          <span *ngIf="!isPokemonInTeam(result)" class="text-red-400 font-bold text-2xl shrink-0">＋</span>
+        </div>
+      </div>
+
+      <!-- Resultados por tipo -->
+      <div *ngIf="!isSearching && searchResults.length > 0 && searchMode === 'type'"
+           class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+        <div
+          *ngFor="let result of searchResults"
+          (click)="!isPokemonInTeam(result) && addToTeam(result)"
+          class="flex flex-col items-center p-2 rounded-2xl border-2 transition-all"
+          [class.border-gray-100]="!isPokemonInTeam(result)"
+          [class.hover:border-red-300]="!isPokemonInTeam(result)"
+          [class.hover:bg-red-50]="!isPokemonInTeam(result)"
+          [class.cursor-pointer]="!isPokemonInTeam(result)"
+          [class.opacity-40]="isPokemonInTeam(result)"
+          [class.cursor-not-allowed]="isPokemonInTeam(result)"
+        >
+          <img [src]="result.sprites.front_default" [alt]="result.name" class="w-16 h-16 object-contain" />
+          <p class="text-xs font-bold capitalize text-gray-700 truncate w-full text-center">{{ result.name }}</p>
+          <p class="text-xs text-gray-300">#{{ result.id | number:'3.0-0' }}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Time completo ── -->
+    <div *ngIf="teamService.teamCount === 6" class="text-center py-3">
+      <span class="inline-block bg-green-50 border border-green-200 text-green-600
+                   font-bold text-sm px-5 py-2 rounded-full">
+        ✅ Time completo! Pronto para batalhar!
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Modal: Salvar Time ── -->
+<div *ngIf="showSaveModal" class="fixed inset-0 z-50 flex items-center justify-center p-4" (click)="showSaveModal = false">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+  <div class="relative bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl" (click)="$event.stopPropagation()">
+    <h2 class="text-xl font-extrabold mb-1 text-gray-800">💾 Salvar Time</h2>
+    <p class="text-sm text-gray-400 mb-5">Dê um nome para o seu time</p>
+    <input
+      type="text"
+      [(ngModel)]="teamName"
+      placeholder="Ex: Time do Ash..."
+      class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-red-400
+             focus:outline-none mb-5 text-sm transition-colors"
+      (keyup.enter)="onSave()"
+      autofocus
+    />
+    <div class="flex gap-3">
+      <button
+        (click)="showSaveModal = false"
+        class="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 font-bold
+               hover:bg-gray-50 transition-all text-sm"
+      >Cancelar</button>
+      <button
+        (click)="onSave()"
+        [disabled]="!teamName.trim()"
+        class="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold
+               transition-all disabled:opacity-40 disabled:cursor-not-allowed text-sm"
+      >Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Carregar Time ── -->
+<div *ngIf="showLoadModal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" (click)="showLoadModal = false">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+  <div
+    class="relative bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl
+           max-h-[85vh] flex flex-col overflow-hidden"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex justify-between items-center px-6 py-5 border-b border-gray-100 shrink-0">
+      <h2 class="text-xl font-extrabold text-gray-800">📂 Times Salvos</h2>
+      <button
+        (click)="showLoadModal = false"
+        class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100
+               hover:bg-gray-200 text-gray-500 font-bold transition-colors"
+      >✕</button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div *ngIf="teamService.savedTeams.length === 0" class="text-center py-12 text-gray-300">
+        <p class="text-5xl mb-3">📭</p>
+        <p class="font-semibold text-gray-400">Nenhum time salvo ainda</p>
+      </div>
+      <div class="space-y-4">
+        <div
+          *ngFor="let saved of teamService.savedTeams; let i = index"
+          class="border-2 border-gray-100 rounded-2xl p-4 hover:border-red-200 transition-all"
+        >
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <p class="font-extrabold text-gray-800">{{ saved.name }}</p>
+              <p class="text-xs text-gray-400 mt-0.5">{{ saved.createdAt }} · {{ saved.pokemons.length }} Pokémon</p>
+            </div>
+            <button
+              (click)="onTeamDeleted(i)"
+              class="text-gray-300 hover:text-red-500 transition-colors text-lg"
+            >🗑️</button>
+          </div>
+          <div class="flex gap-1 flex-wrap mb-3">
+            <div *ngFor="let p of saved.pokemons" class="text-center">
+              <img [src]="p.sprites.front_default" [alt]="p.name" class="w-12 h-12 object-contain" />
+              <p class="text-xs capitalize text-gray-500 truncate w-12">{{ p.name }}</p>
+            </div>
+          </div>
+          <button
+            (click)="onTeamLoaded(saved)"
+            class="w-full py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold
+                   text-sm transition-all"
+          >Carregar Time</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
