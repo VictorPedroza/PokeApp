@@ -96,4 +96,23 @@ export class PokemonService {
       .get<Pokemon>(`${this.apiUrl}/pokemon/${term.toLowerCase()}`)
       .pipe(catchError(() => of(null)));
   }
+
+  /**
+   * Busca Pokémons por tipo.
+   *
+   * @param {string} type - tipo do Pokémon (ex: 'fire', 'water')
+   * @param {number} limit - quantidade máxima de resultados (padrão: 24)
+   *
+   * @returns Observable com lista de Pokémons do tipo
+   **/
+  searchByType(type: string, limit: number = 24): Observable<Pokemon[]> {
+    return this.http.get<any>(`${this.apiUrl}/type/${type}`).pipe(
+      switchMap((res) => {
+        const entries = res.pokemon.slice(0, limit) as { pokemon: { url: string } }[];
+        const requests = entries.map((e) => this.http.get<Pokemon>(e.pokemon.url));
+        return forkJoin(requests as Observable<Pokemon>[]);
+      }),
+      catchError(() => of([])),
+    );
+  }
 }
