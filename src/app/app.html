@@ -1,15 +1,11 @@
-<div
-  class="min-h-screen w-full bg-linear-to-tr from-gray-900 to-blue-950 flex items-center justify-center"
->
-  <div class="flex w-[90%] h-[90vh] gap-4">
-    <sidebar-component></sidebar-component>
+<div class="h-screen overflow-hidden bg-slate-900">
+  <sidebar-component></sidebar-component>
 
-    <div class="flex flex-1 flex-col">
-      <header-component></header-component>
+  <div class="ml-64 flex h-screen flex-col">
+    <header-component></header-component>
 
-      <main class="flex flex-1 items-center justify-center">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
+    <main class="min-h-0 flex-1 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>
