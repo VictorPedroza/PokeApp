@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { LucideHome } from '@lucide/angular';
 
 @Component({
   selector: 'sidebar-component',
   standalone: false,
   templateUrl: './sidebar-component.html'
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+}

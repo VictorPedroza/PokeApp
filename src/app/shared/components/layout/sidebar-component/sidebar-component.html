@@ -7,19 +7,18 @@
       <img src="/images/pokeball.png" alt="PokeHub" class="h-12 w-12 object-contain" />
     </div>
 
-    <h1 class="text-xl font-bold tracking-tight text-white">PokeHub</h1>
+    <h1 class="text-3xl font-bold tracking-tighter text-white">Poke<span class="text-red-500" >Hub</span></h1>
   </div>
 
-  <!-- Navigation -->
-  <nav class="flex flex-1 flex-col gap-2 overflow-y-auto p-4">
-    <!--
-    <a
-      routerLink="/dashboard"
-      routerLinkActive="bg-slate-800 text-white"
-      class="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-400 transition hover:bg-slate-800 hover:text-white"
-    >
-      Dashboard
-    </a>
-    -->
+  <!-- Navegaçãod -->
+  <nav class="flex flex-1 flex-col gap-2 overflow-y-auto pt-4">
+    <!-- Explorar -->
+    <div class="flex flex-1 flex-col">
+      <h1 class="pl-3 text-[12px] tracking-[0.2em] text-slate-600 uppercase">Explorar</h1>
+      <!-- Dashboard -->
+      <sidebar-item label="Dashboard" routerLink="/">
+        <svg lucideBookOpen></svg>
+      </sidebar-item>
+    </div>
   </nav>
 </div>
