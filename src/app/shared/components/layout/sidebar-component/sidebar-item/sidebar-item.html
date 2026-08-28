@@ -1,7 +1,13 @@
 <a
   [routerLink]="routerLink"
+  #rla="routerLinkActive"
+  routerLinkActive="bg-slate-800/40 text-white font-medium border-l-2 border-blue-600"
+  [routerLinkActiveOptions]="{ exact: exact }"
   class="flex items-center gap-3 px-4 py-3 text-gray-400 transition hover:bg-slate-800 hover:text-white"
 >
-  <ng-content></ng-content>
+  <div [class.text-blue-600]="rla.isActive">
+    <ng-content></ng-content>
+  </div>
+
   <span>{{ label }}</span>
 </a>
