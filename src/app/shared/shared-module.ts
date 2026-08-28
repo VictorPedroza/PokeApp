@@ -6,11 +6,11 @@ import { SidebarComponent } from './components/layout/sidebar-component/sidebar-
 import { HeaderComponent } from './components/layout/header-component/header-component';
 import { SidebarItem } from './components/layout/sidebar-component/sidebar-item/sidebar-item';
 
-import { LucideBookOpen } from '@lucide/angular';
+import { LucideBookOpen, LucideHome } from '@lucide/angular';
 
 @NgModule({
   declarations: [SidebarComponent, HeaderComponent, SidebarItem],
-  imports: [CommonModule, RouterModule, LucideBookOpen],
+  imports: [CommonModule, RouterModule, LucideBookOpen, LucideHome],
   exports: [SidebarComponent, HeaderComponent],
 })
 export class SharedModule {}

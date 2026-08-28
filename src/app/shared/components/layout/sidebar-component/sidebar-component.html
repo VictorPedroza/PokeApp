@@ -16,9 +16,14 @@
   <nav class="flex flex-1 flex-col gap-2 overflow-y-auto pt-4">
     <!-- Explorar -->
     <div class="flex flex-1 flex-col">
-      <h1 class="pl-3 text-[12px] tracking-[0.2em] text-slate-600 uppercase">Explorar</h1>
+      <h1 class="pl-3 pb-0.5 text-[12px] tracking-[0.2em] text-slate-600 uppercase">Explorar</h1>
       <!-- Dashboard -->
       <sidebar-item label="Dashboard" routerLink="/">
+        <svg lucideHome></svg>
+      </sidebar-item>
+
+      <!-- Pokedex -->
+      <sidebar-item label="Pokedex" routerLink="/pokedex">
         <svg lucideBookOpen></svg>
       </sidebar-item>
     </div>
