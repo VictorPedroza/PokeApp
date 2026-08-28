@@ -7,6 +7,12 @@ const routes: Routes = [
     loadChildren: () => 
       import("./modules/home/home-module")
         .then(m => m.HomeModule)
+  },
+  {
+    path: "pokedex",
+    loadChildren: () => 
+      import("./modules/pokedex/pokedex-module")
+        .then(m => m.PokedexModule)
   }
 ];
 
