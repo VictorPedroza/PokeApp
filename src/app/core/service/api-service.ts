@@ -8,7 +8,19 @@ import { Observable } from 'rxjs';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  get<T>(baseUrl: string, route: string): Observable<T> {
-    return this.http.get<T>(`${baseUrl}/${route}`);
+  get<TResponse>(baseUrl: string, route: string): Observable<TResponse> {
+    return this.http.get<TResponse>(`${baseUrl}/${route}`);
+  }
+
+  post<TRequest, TResponse>(baseUrl: string, route: string, data: TRequest): Observable<TResponse> {
+    return this.http.post<TResponse>(`${baseUrl}/${route}`, data);
+  }
+
+  put<TRequest, TResponse>(baseUrl: string, route: string, data: TRequest): Observable<TResponse> {
+    return this.http.put<TResponse>(`${baseUrl}/${route}`, data);
+  }
+
+  delete(baseUrl: string, route: string): Observable<void> {
+    return this.http.delete<void>(`${baseUrl}/${route}`);
   }
 }
