@@ -1,0 +1,55 @@
+<div
+  class="group flex items-center border border-white/10 p-4 text-white duration-200 hover:border-white/20 hover:bg-slate-900/60"
+>
+  <!-- Pokemon -->
+  <div class="shrink-0">
+    <img
+      [src]="pokemon.sprites.front_default"
+      alt="Pokemon Image"
+      class="h-32 w-32 object-contain transition-transform duration-200 group-hover:scale-120"
+    />
+  </div>
+
+  <!-- Informações -->
+  <div class="flex min-w-0 flex-1 flex-col gap-4">
+    <div>
+      <h1 class="truncate text-xl font-bold capitalize text-slate-50">
+        {{ pokemon.name }}
+        <span class="text-[10px] text-slate-600 uppercase">N° 0{{ pokemon.id }}</span>
+      </h1>
+
+      <span class="text-xs uppercase tracking-widest text-slate-400"> Pokémon </span>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-4 overflow-hidden border border-white/10 border-l-0 border-r-0">
+      <div class="border-r border-white/10 px-2 py-2 text-center">
+        <p class="text-xs font-medium uppercase text-slate-400">{{ pokemon.stats[0].stat.name }}</p>
+        <p class="mt-1 text-lg font-bold">
+          {{ pokemon.stats[0].base_stat }}
+        </p>
+      </div>
+
+      <div class="border-r border-white/10 px-2 py-2 text-center">
+        <p class="text-xs font-medium uppercase text-slate-400">{{ pokemon.stats[1].stat.name }}</p>
+        <p class="mt-1 text-lg font-bold">
+          {{ pokemon.stats[1].base_stat }}
+        </p>
+      </div>
+
+      <div class="border-r border-white/10 px-2 py-2 text-center">
+        <p class="text-xs font-medium uppercase text-slate-400">{{ pokemon.stats[2].stat.name }}</p>
+        <p class="mt-1 text-lg font-bold">
+          {{ pokemon.stats[2].base_stat }}
+        </p>
+      </div>
+
+      <div class="px-2 py-2 text-center">
+        <p class="text-xs font-medium uppercase text-slate-400">{{ pokemon.stats[5].stat.name }}</p>
+        <p class="mt-1 text-lg font-bold">
+          {{ pokemon.stats[5].base_stat }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
