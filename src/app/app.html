@@ -1,8 +1,15 @@
 <div class="h-screen overflow-hidden bg-slate-900">
-  <sidebar-component></sidebar-component>
+  <!-- Overlay (apenas mobile, quando o menu está aberto) -->
+  <div
+    *ngIf="sidebarOpen()"
+    class="fixed inset-0 z-40 bg-black/60 md:hidden"
+    (click)="closeSidebar()"
+  ></div>
 
-  <div class="ml-64 flex h-screen flex-col">
-    <header-component></header-component>
+  <sidebar-component [isOpen]="sidebarOpen()" (closeMenu)="closeSidebar()"></sidebar-component>
+
+  <div class="flex h-screen flex-col md:ml-64">
+    <header-component (menuClick)="toggleSidebar()"></header-component>
 
     <main class="min-h-0 flex-1 overflow-y-auto hide-scrollbar ">
       <router-outlet></router-outlet>

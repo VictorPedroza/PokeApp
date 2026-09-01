@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LucideHome } from '@lucide/angular';
 
 @Component({
@@ -7,4 +7,6 @@ import { LucideHome } from '@lucide/angular';
   templateUrl: './sidebar-component.html'
 })
 export class SidebarComponent {
+  @Input() isOpen = false;
+  @Output() closeMenu = new EventEmitter<void>();
 }

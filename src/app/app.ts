@@ -8,4 +8,13 @@ import { Component, signal } from '@angular/core';
 })
 export class App {
   protected readonly title = signal('PokeDex');
+  protected readonly sidebarOpen = signal(false);
+
+  protected toggleSidebar(): void {
+    this.sidebarOpen.update((open) => !open);
+  }
+
+  protected closeSidebar(): void {
+    this.sidebarOpen.set(false);
+  }
 }
