@@ -1,6 +1,6 @@
 <div class="flex h-screen flex-col overflow-hidden">
   <!-- Header -->
-  <div class="shrink-0 border-b border-gray-500/20 px-4 py-6 sm:px-6 sm:py-8">
+  <div class="shrink-0 border-b border-gray-500/20 px-4 py-6 sm:px-6 ">
     <p class="text-[12px] tracking-[0.2em] text-slate-600 uppercase">Índice</p>
 
     <h1 class="text-2xl font-bold text-slate-50 sm:text-3xl">
@@ -13,9 +13,13 @@
     </p>
   </div>
 
+  @if (pokemons.length > 0) {
+    <pokemon-hero [pokemon]="pokemons[0]"></pokemon-hero>
+  }
+
   <!-- Área com scroll -->
-  <div class="hide-scrollbar min-h-0 flex-1 overflow-y-auto">
-    <div class="grid grid-cols-1 gap-2 p-2 sm:gap-0 sm:p-4 md:grid-cols-2 cursor-pointer">
+  <div class="hide-scrollbar min-h-0 flex-1 overflow-y-auto mb-24">
+    <div class="grid grid-cols-1 gap-2 sm:gap-0 md:grid-cols-2 cursor-pointer">
       <div *ngFor="let pokemon of pokemons">
         <pokemon-card [pokemon]="pokemon"></pokemon-card>
       </div>

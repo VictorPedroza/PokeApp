@@ -15,7 +15,7 @@
     <div>
       <h1 class="truncate text-xl font-bold capitalize text-slate-50">
         {{ pokemon.name }}
-        <span class="text-[10px] text-slate-600 uppercase">N° 0{{ pokemon.id }}</span>
+        <span class="text-[10px] text-slate-600 uppercase">N° {{ pokemon.id | number: '3.0' }}</span>
       </h1>
 
       <span class="text-xs uppercase tracking-widest text-slate-400"> Pokémon </span>

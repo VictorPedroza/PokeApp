@@ -1,0 +1,56 @@
+<section class="group relative flex overflow-hidden border-b border-gray-500/20 px-4 py-2">
+  <!-- Glow -->
+  <div
+    class="absolute -left-10 top-1/2 h-40 w-50 -translate-y-1/2 rounded-full bg-slate-400/10 blur-3xl"
+  ></div>
+
+  <!-- Pokemon -->
+  <div class="relative flex shrink-0 items-center">
+    <img
+      [src]="pokemon.sprites.front_default"
+      [alt]="pokemon.name"
+      class="h-36 w-36 object-contain transition duration-300 group-hover:scale-105"
+    />
+  </div>
+
+  <!-- Informações -->
+  <div class="flex min-w-0 flex-1 flex-col justify-center gap-3">
+    <!-- Título -->
+    <div>
+      <p class="text-[11px] tracking-[0.2em] text-slate-600 uppercase">Primeiro Pokémon</p>
+
+      <div class="flex items-baseline gap-2">
+        <h1 class="truncate text-3xl font-bold capitalize text-slate-50">
+          {{ pokemon.name }}
+        </h1>
+
+        <span class="text-sm font-bold text-slate-600">
+          N° {{ pokemon.id | number: '3.0' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Tipos -->
+    <div class="flex gap-2">
+      <span class="rounded bg-green-700/20 px-2 py-1 text-[11px] font-bold text-green-500">
+        Planta
+      </span>
+
+      <span class="rounded bg-purple-700/20 px-2 py-1 text-[11px] font-bold text-purple-400">
+        Veneno
+      </span>
+    </div>
+    <!-- Dados rápidos -->
+    <div class="flex items-center gap-5 text-xs">
+      <div>
+        <span class="text-slate-600">Altura:</span>
+        <span class="ml-1 font-semibold text-slate-300">{{ pokemon.height }} m</span>
+      </div>
+
+      <div>
+        <span class="text-slate-600">Peso:</span>
+        <span class="ml-1 font-semibold text-slate-300">{{ pokemon.weight }} kg</span>
+      </div>
+    </div>
+  </div>
+</section>
