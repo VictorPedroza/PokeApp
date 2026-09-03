@@ -7,16 +7,6 @@ import { Pokemon, PokemonResponse, PokemonType } from '../../../shared/constants
 import { pokemonTypeStyles } from '../../../shared/constants/pokemon/styles';
 import { environment } from '../../../../environments/environment';
 
-// Interface específica para o payload do endpoint de tipos da PokeAPI
-export interface PokemonTypeEndpointResponse {
-  pokemon: Array<{
-    pokemon: {
-      name: string;
-      url: string;
-    };
-  }>;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -25,7 +15,7 @@ export class PokemonService {
 
   constructor(private api: ApiService) {}
 
-  buscarPokemons(limit: number = 20, offset: number = 0): Observable<Pokemon[]> {
+  buscarPokemons(limit: number = 10, offset: number = 0): Observable<Pokemon[]> {
     return this.api
       .get<PokemonResponse>(this.baseUrl, `pokemon?limit=${limit}&offset=${offset}`)
       .pipe(
