@@ -18,7 +18,6 @@ export class PokedexPage implements OnInit {
       next: (response) => {
         console.log(response);
         this.pokemons = response;
-        console.log(this.pokemons);
         this.cdr.detectChanges();
       },
       error: (error) => {

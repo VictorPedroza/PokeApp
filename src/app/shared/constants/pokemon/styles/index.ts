@@ -1,4 +1,11 @@
-export const pokemonTypeStyles = {
+export interface TypeStyle {
+  title: string;
+  bg: string;
+  border: string;
+  text: string;
+}
+
+export const pokemonTypeStyles: Record<string, TypeStyle> = {
   normal: {
     title: 'Normal',
     bg: 'bg-slate-400/20',
@@ -84,19 +91,19 @@ export const pokemonTypeStyles = {
     text: 'text-pink-500',
   },
   ice: {
-    texto: 'Gelo',
+    title: 'Gelo', 
     bg: 'bg-cyan-300/20',
     border: 'border-cyan-300',
     text: 'text-cyan-500',
   },
   dragon: {
-    texto: 'Dragão',
+    title: 'Dragão', 
     bg: 'bg-indigo-600/20',
     border: 'border-indigo-600',
     text: 'text-indigo-600',
   },
   dark: {
-    texto: 'Sombrio',
+    title: 'Sombrio', 
     bg: 'bg-zinc-800/20',
     border: 'border-zinc-800',
     text: 'text-zinc-800',

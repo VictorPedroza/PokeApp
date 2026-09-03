@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   api: {
-    pokemon: ""
+    pokemon: "https://pokeapi.co/api/v2"
   }
 };
