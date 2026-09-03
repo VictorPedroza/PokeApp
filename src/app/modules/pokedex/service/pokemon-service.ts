@@ -44,21 +44,6 @@ export class PokemonService {
     return this.api.get<Pokemon>(this.baseUrl, `pokemon/${pokemon}`);
   }
 
-  buscarPokemonsPorTipo(tipo: string, limit: number = 20): Observable<Pokemon[]> {
-    return this.api.get<PokemonTypeEndpointResponse>(this.baseUrl, `type/${tipo}`).pipe(
-      switchMap((response) => {
-        const pokemonsLimitados = response.pokemon.slice(0, limit);
-
-        if (!pokemonsLimitados || pokemonsLimitados.length === 0) {
-          return of([]);
-        }
-
-        const requests = pokemonsLimitados.map((item) => this.buscarPokemon(item.pokemon.name));
-        return forkJoin(requests);
-      }),
-    );
-  }
-
   getTypeStyle(type: string) {
     return pokemonTypeStyles[type as PokemonType];
   }
