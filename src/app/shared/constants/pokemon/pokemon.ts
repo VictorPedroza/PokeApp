@@ -12,6 +12,9 @@ export interface Pokemon {
       name: string;
     };
   }[];
+  types: {
+    type: { name: string };
+  }[];
 }
 
 export interface PokemonResponse {
@@ -22,3 +25,25 @@ export interface PokemonResponse {
     name: string;
   }[];
 }
+
+export type PokemonType =
+  | 'normal'
+  | 'fighting'
+  | 'flying'
+  | 'poison'
+  | 'ground'
+  | 'rock'
+  | 'bug'
+  | 'ghost'
+  | 'steel'
+  | 'fire'
+  | 'water'
+  | 'grass'
+  | 'electric'
+  | 'psychic'
+  | 'ice'
+  | 'dragon'
+  | 'dark'
+  | 'fairy'
+  | 'stellar'
+  | 'unknown';

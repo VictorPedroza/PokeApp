@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../../../core/service/api-service';
-import { Pokemon, PokemonResponse } from '../../../shared/constants/pokemon/pokemon';
 import { forkJoin, Observable, switchMap } from 'rxjs';
+
+import { ApiService } from '../../../core/service/api-service';
+
+import { Pokemon, PokemonResponse, PokemonType } from '../../../shared/constants/pokemon/pokemon';
+import { pokemonTypeStyles } from '../../../shared/constants/pokemon/styles';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +26,9 @@ export class PokemonService {
 
   buscarPokemon(pokemon: string) {
     return this.api.get<Pokemon>(this.baseUrl, `pokemon/${pokemon}`);
+  }
+
+  getTypeStyle(type: string) {
+    return pokemonTypeStyles[type as PokemonType];
   }
 }

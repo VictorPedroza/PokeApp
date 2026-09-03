@@ -1,7 +1,8 @@
 <section class="group relative flex overflow-hidden border-b border-gray-500/20 px-4 py-2">
-  <!-- Glow -->
+  <!-- Glow Dinâmico (Pega a cor do primeiro tipo) -->
   <div
-    class="absolute -left-10 top-1/2 h-40 w-50 -translate-y-1/2 rounded-full bg-slate-400/10 blur-3xl"
+    class="absolute -left-10 top-1/2 h-40 w-50 -translate-y-1/2 rounded-full blur-3xl transition-colors duration-500"
+    [ngClass]="getStyle(pokemon.types[0].type.name).bg"
   ></div>
 
   <!-- Pokemon -->
@@ -24,22 +25,22 @@
           {{ pokemon.name }}
         </h1>
 
-        <span class="text-sm font-bold text-slate-600">
-          N° {{ pokemon.id | number: '3.0' }}
+        <span class="text-sm font-bold text-slate-600"> N° {{ pokemon.id | number: '3.0' }} </span>
+      </div>
+      <div class="flex mt-2" >
+        <span
+          *ngFor="let type of pokemon.types"
+          class="mr-2 px-2 py-1 text-[10px] font-bold uppercase tracking-widest"
+          [ngClass]="[
+            getStyle(type.type.name).bg,
+            getStyle(type.type.name).text
+          ]"
+        >
+          {{ type.type.name }}
         </span>
       </div>
     </div>
 
-    <!-- Tipos -->
-    <div class="flex gap-2">
-      <span class="rounded bg-green-700/20 px-2 py-1 text-[11px] font-bold text-green-500">
-        Planta
-      </span>
-
-      <span class="rounded bg-purple-700/20 px-2 py-1 text-[11px] font-bold text-purple-400">
-        Veneno
-      </span>
-    </div>
     <!-- Dados rápidos -->
     <div class="flex items-center gap-5 text-xs">
       <div>

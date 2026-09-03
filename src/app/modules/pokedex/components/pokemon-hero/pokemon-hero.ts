@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Pokemon } from '../../../../shared/constants/pokemon/pokemon';
+import { Component, Input, OnInit } from '@angular/core';
+import { Pokemon, PokemonType } from '../../../../shared/constants/pokemon/pokemon';
+import { PokemonService } from '../../service/pokemon-service';
 
 @Component({
   selector: 'pokemon-hero',
@@ -8,4 +9,11 @@ import { Pokemon } from '../../../../shared/constants/pokemon/pokemon';
 })
 export class PokemonHero {
   @Input() pokemon!: Pokemon;
+
+  constructor (private pokemonService: PokemonService) {}
+
+  getStyle(type: string) {
+    return this.pokemonService.getTypeStyle(type);
+  }
 }
+

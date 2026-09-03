@@ -18,7 +18,18 @@
         <span class="text-[10px] text-slate-600 uppercase">N° {{ pokemon.id | number: '3.0' }}</span>
       </h1>
 
-      <span class="text-xs uppercase tracking-widest text-slate-400"> Pokémon </span>
+      <span class="text-xs uppercase tracking-widest text-slate-400">
+        <span
+          *ngFor="let type of pokemon.types"
+          class="mr-2 px-2 py-1 text-[10px] font-bold uppercase tracking-widest"
+          [ngClass]="[
+            getStyle(type.type.name).bg,
+            getStyle(type.type.name).text
+          ]"
+        >
+          {{ type.type.name }}
+        </span>
+      </span>
     </div>
 
     <!-- Stats -->
