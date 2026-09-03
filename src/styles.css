@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+
+:host {
+  display: block;
+  height: 100%;
+}

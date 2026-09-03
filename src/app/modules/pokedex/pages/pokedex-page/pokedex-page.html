@@ -1,4 +1,4 @@
-<div class="flex h-screen flex-col overflow-hidden">
+<div class="flex h-full flex-col overflow-hidden">
   <!-- Header -->
   <div class="shrink-0 border-b border-gray-500/20 px-4 py-6 sm:px-6">
     <p class="text-[12px] tracking-[0.2em] text-slate-600 uppercase">Índice</p>
@@ -13,15 +13,25 @@
     </p>
   </div>
 
+  <section class="shrink-0 group relative flex items-center border-b border-slate-700/40 px-4 py-3">
+    <span
+      class="cursor-pointer border border-slate-400/30 bg-slate-500/10 px-3 py-0.5 text-sm text-slate-300 transition-all duration-200 hover:border-slate-400/50 hover:bg-slate-500/20 hover:text-slate-200"
+    >
+      Todos
+    </span>
+  </section>
+
   @if (isLoading) {
     <loading-component></loading-component>
   } @else {
     @if (pokemons.length > 0) {
       <!-- Hero Card -->
-      <pokemon-hero [pokemon]="pokemons[0]"></pokemon-hero>
+      <div class="shrink-0">
+        <pokemon-hero  [pokemon]="pokemons[0]"></pokemon-hero>
+      </div>
 
       <!-- Área com scroll -->
-      <div class="hide-scrollbar min-h-0 flex-1 overflow-y-auto mb-24">
+      <div class="hide-scrollbar min-h-0 flex-1 overflow-y-auto">
         <div class="grid grid-cols-1 gap-2 sm:gap-0 md:grid-cols-2 cursor-pointer">
           <div *ngFor="let pokemon of pokemons">
             <pokemon-card [pokemon]="pokemon"></pokemon-card>
