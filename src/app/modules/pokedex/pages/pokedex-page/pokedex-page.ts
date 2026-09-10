@@ -13,11 +13,20 @@ export class PokedexPage implements OnInit {
   isLoading: boolean = false;
 
   types: PokemonType[] = PokemonTypes;
+  typeSelected: PokemonType | 'all' = 'all';
 
-  constructor(private api: PokemonService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private api: PokemonService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
+    this.buscarPokemons();
+  }
+
+  buscarPokemons() {
     this.isLoading = true;
+    this.typeSelected = "all";
     this.api.buscarPokemons().subscribe({
       next: (response) => {
         console.log(response);

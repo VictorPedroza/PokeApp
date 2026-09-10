@@ -15,7 +15,7 @@ export class PokemonService {
 
   constructor(private api: ApiService) {}
 
-  buscarPokemons(limit: number = 10, offset: number = 0): Observable<Pokemon[]> {
+  buscarPokemons(limit: number = 50, offset: number = 0): Observable<Pokemon[]> {
     return this.api
       .get<PokemonResponse>(this.baseUrl, `pokemon?limit=${limit}&offset=${offset}`)
       .pipe(
