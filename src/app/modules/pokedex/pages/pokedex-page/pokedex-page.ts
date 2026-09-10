@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PokemonService } from '../../service/pokemon-service';
-import { Pokemon } from '../../../../shared/constants/pokemon/pokemon';
+import { Pokemon, PokemonType, PokemonTypes } from '../../../../shared/constants/pokemon/pokemon';
 
 @Component({
   selector: 'app-pokedex-page',
@@ -11,6 +11,8 @@ import { Pokemon } from '../../../../shared/constants/pokemon/pokemon';
 export class PokedexPage implements OnInit {
   pokemons: Pokemon[] = [];
   isLoading: boolean = false;
+
+  types: PokemonType[] = PokemonTypes;
 
   constructor(private api: PokemonService, private cdr: ChangeDetectorRef) {}
 
@@ -28,5 +30,9 @@ export class PokedexPage implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  getStyle(type: string) {
+    return this.api.getTypeStyle(type);
   }
 }
