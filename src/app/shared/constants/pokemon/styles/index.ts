@@ -52,7 +52,7 @@ export const pokemonTypeStyles: Record<string, TypeStyle> = {
     title: 'Fantasma',
     bg: 'bg-indigo-800/20',
     border: 'border-indigo-800',
-    text: 'text-indigo-800',
+    text: 'text-indigo-600',
   },
   steel: {
     title: 'Aço',
@@ -100,19 +100,19 @@ export const pokemonTypeStyles: Record<string, TypeStyle> = {
     title: 'Dragão',
     bg: 'bg-indigo-600/20',
     border: 'border-indigo-600',
-    text: 'text-indigo-600',
+    text: 'text-indigo-700',
   },
   dark: {
     title: 'Sombrio',
     bg: 'bg-zinc-800/20',
     border: 'border-zinc-800',
-    text: 'text-zinc-800',
+    text: 'text-zinc-600',
   },
   fairy: {
     title: 'Fada',
     bg: 'bg-fuchsia-300/20',
     border: 'border-fuchsia-300',
-    text: 'text-fuchsia-500',
+    text: 'text-fuchsia-700',
   },
   stellar: {
     title: 'Estelar',
