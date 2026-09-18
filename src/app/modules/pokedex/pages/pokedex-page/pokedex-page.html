@@ -27,18 +27,20 @@
     >
       Todos
     </span>
-    <span
-      class="cursor-pointer border-[0.5px] px-2 py-0.5 text-sm transition-all duration-200"
-      [ngClass]="
-        typeSelected === type
-          ? [getStyle(type).bg, getStyle(type).text]
-          : 'border-slate-700/30 bg-slate-800/10 text-slate-500 hover:border-slate-400/50 hover:bg-slate-500/20 hover:text-slate-200'
-      "
-      (click)="typeSelected = type"
-      *ngFor="let type of types"
-    >
-      {{ getStyle(type).title }}
-    </span>
+    <section class="flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-thin">
+      <span
+        class="shrink-0 my-2 cursor-pointer border-[0.5px] px-2 py-0.5 text-sm transition-all duration-200"
+        [ngClass]="
+          typeSelected === type
+            ? [getStyle(type).bg, getStyle(type).text]
+            : 'border-slate-700/30 bg-slate-800/10 text-slate-500 hover:border-slate-400/50 hover:bg-slate-500/20 hover:text-slate-200'
+        "
+        (click)="typeSelected = type"
+        *ngFor="let type of types"
+      >
+        {{ getStyle(type).title }}
+      </span>
+    </section>
   </section>
 
   @if (isLoading) {
