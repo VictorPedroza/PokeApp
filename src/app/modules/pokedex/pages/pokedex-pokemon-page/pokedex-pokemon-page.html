@@ -11,12 +11,12 @@
     </div>
   </div>
 } @else if (currentPokemon) {
-  <div class="overflow-hidden border border-white/10 bg-slate-900/70 backdrop-blur-md">
+  <div class="overflow-hidden border-b border-white/10 bg-slate-900/70 backdrop-blur-md">
     <!-- Header -->
-    <div class="flex min-h-80">
+    <div class="flex flex-col sm:flex-row w-full">
       <!-- Imagem -->
       <div
-        class="group relative flex w-1/2 items-center justify-center overflow-hidden border-r border-white/10"
+        class="group relative flex w-full items-center justify-center overflow-hidden border-b border-white/10 sm:border-b-0 sm:border-r"
       >
         <!-- Glow externo -->
         <div
@@ -37,7 +37,7 @@
       </div>
 
       <!-- Informações -->
-      <div class="flex w-1/2 flex-col justify-center px-8 py-8">
+      <div class="flex w-full flex-col justify-center px-8 py-8">
         <!-- Metadados -->
         <div
           class="flex flex-wrap items-center gap-2 text-sm font-semibold uppercase tracking-widest text-slate-400"
@@ -61,7 +61,7 @@
         <div class="flex flex-wrap gap-2">
           @for (type of currentPokemon.types; track type.type.name) {
             <span
-              class="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest shadow-lg"
+              class="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest"
               [ngClass]="[getStyle(type.type.name).bg, getStyle(type.type.name).text]"
             >
               {{ getStyle(type.type.name).title }}
@@ -69,6 +69,35 @@
           }
         </div>
       </div>
+    </div>
+  </div>
+  <!-- Estatisticas Base -->
+  <div class="border-b border-white/10 bg-slate-900/70 px-4 py-6">
+    <h1 class="py-6 text-sm font-semibold uppercase tracking-widest text-slate-400">
+      Estatísticas Base
+    </h1>
+    <div class="space-y-4 px-2">
+      @for (stat of currentPokemon.stats; track stat.stat.name) {
+        <div>
+          <div class="mb-1.5 flex items-center justify-between">
+            <span class="text-xs font-medium uppercase text-slate-400">
+              {{ stat.stat.name }}
+            </span>
+
+            <span class="text-sm font-bold text-white">
+              {{ stat.base_stat }}
+            </span>
+          </div>
+
+          <div class="h-2 overflow-hidden rounded-full bg-slate-700">
+            <div
+              class="h-full rounded-full transition-all duration-500"
+              [ngClass]="getStyle(currentPokemon.types[0].type.name).bg"
+              [style.width.%]="getStatPercentage(stat.base_stat)"
+            ></div>
+          </div>
+        </div>
+      }
     </div>
   </div>
 }

@@ -19,7 +19,7 @@ export class PokedexPokemonPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: PokemonService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -49,5 +49,9 @@ export class PokedexPokemonPage implements OnInit {
 
   getStyle(type: string) {
     return this.service.getTypeStyle(type);
+  }
+
+  getStatPercentage(value: number): number {
+    return Math.min((value / 255) * 100, 100);
   }
 }

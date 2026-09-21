@@ -11,7 +11,7 @@
   <div class="flex h-screen flex-col md:ml-64">
     <header-component (menuClick)="toggleSidebar()"></header-component>
 
-    <main class="min-h-0 flex-1">
+    <main class="min-h-0 flex-1 overflow-y-auto">
       <router-outlet></router-outlet>
     </main>
   </div>
