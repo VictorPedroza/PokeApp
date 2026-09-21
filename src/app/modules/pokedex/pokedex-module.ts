@@ -7,9 +7,10 @@ import { PokemonCard } from './components/pokemon-card/pokemon-card';
 import { PokemonHero } from './components/pokemon-hero/pokemon-hero';
 import { SharedModule } from '../../shared/shared-module';
 import { PokedexPokemonPage } from './pages/pokedex-pokemon-page/pokedex-pokemon-page';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [PokedexPage, PokemonCard, PokemonHero, PokedexPokemonPage],
-  imports: [CommonModule, SharedModule, PokedexRoutingModule],
+  imports: [CommonModule, SharedModule, RouterModule, PokedexRoutingModule],
 })
 export class PokedexModule {}
