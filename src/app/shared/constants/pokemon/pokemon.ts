@@ -54,9 +54,7 @@ export type PokemonType =
   | 'ice'
   | 'dragon'
   | 'dark'
-  | 'fairy'
-  | 'stellar'
-  | 'unknown';
+  | 'fairy';
 
 export const PokemonTypes: PokemonType[] = [
   'normal',
@@ -77,6 +75,4 @@ export const PokemonTypes: PokemonType[] = [
   'dragon',
   'dark',
   'fairy',
-  'stellar',
-  'unknown',
 ];
