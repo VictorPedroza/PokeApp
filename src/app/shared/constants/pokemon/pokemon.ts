@@ -15,6 +15,8 @@ export interface Pokemon {
   types: {
     type: { name: string };
   }[];
+  generation: string;
+  region: string;
 }
 
 export interface PokemonResponse {
@@ -26,7 +28,6 @@ export interface PokemonResponse {
   }[];
 }
 
-// Interface para mapear o retorno do endpoint /type/{name}
 export interface PokemonTypeResponse {
   pokemon: {
     pokemon: {
@@ -35,6 +36,36 @@ export interface PokemonTypeResponse {
     };
   }[];
 }
+
+export interface PokemonSpeciesResponse {
+  generation: {
+    name: string;
+  };
+}
+
+export const regions: Record<string, string> = {
+  'generation-i': 'Kanto',
+  'generation-ii': 'Johto',
+  'generation-iii': 'Hoenn',
+  'generation-iv': 'Sinnoh',
+  'generation-v': 'Unova',
+  'generation-vi': 'Kalos',
+  'generation-vii': 'Alola',
+  'generation-viii': 'Galar',
+  'generation-ix': 'Paldea',
+};
+
+export const generations: Record<string, string> = {
+  'generation-i': 'Gen I',
+  'generation-ii': 'Gen II',
+  'generation-iii': 'Gen III',
+  'generation-iv': 'Gen IV',
+  'generation-v': 'Gen V',
+  'generation-vi': 'Gen VI',
+  'generation-vii': 'Gen VII',
+  'generation-viii': 'Gen VIII',
+  'generation-ix': 'Gen IX',
+};
 
 export type PokemonType =
   | 'normal'

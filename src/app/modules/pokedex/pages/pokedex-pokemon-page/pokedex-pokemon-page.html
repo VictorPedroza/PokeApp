@@ -1,1 +1,74 @@
-<p>pokedex-pokemon-page works!</p>
+@if (isLoading) {
+  <loading-component></loading-component>
+} @else if (error) {
+  <div class="flex min-h-100 items-center justify-center">
+    <div class="text-center">
+      <p class="mb-2 text-5xl">?</p>
+
+      <h1 class="text-xl font-bold text-slate-200">Pokémon não encontrado</h1>
+
+      <p class="mt-2 text-sm text-slate-500">Verifique o nome informado e tente novamente.</p>
+    </div>
+  </div>
+} @else if (currentPokemon) {
+  <div class="overflow-hidden border border-white/10 bg-slate-900/70 backdrop-blur-md">
+    <!-- Header -->
+    <div class="flex min-h-80">
+      <!-- Imagem -->
+      <div
+        class="group relative flex w-1/2 items-center justify-center overflow-hidden border-r border-white/10"
+      >
+        <!-- Glow externo -->
+        <div
+          class="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[90px] opacity-70 transition-all duration-700"
+          [ngClass]="getStyle(currentPokemon.types[0].type.name).bg"
+        ></div>
+        <!-- Glow interno -->
+        <div
+          class="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[90px] opacity-80 transition-all duration-500"
+          [ngClass]="getStyle(currentPokemon.types[0].type.name).bg"
+        ></div>
+        <!-- Imagem -->
+        <img
+          [src]="currentPokemon.sprites.front_default"
+          [alt]="currentPokemon.name"
+          class="relative z-10 h-64 w-64 object-contain transition-transform duration-500 group-hover:scale-110"
+        />
+      </div>
+
+      <!-- Informações -->
+      <div class="flex w-1/2 flex-col justify-center px-8 py-8">
+        <!-- Metadados -->
+        <div
+          class="flex flex-wrap items-center gap-2 text-sm font-semibold uppercase tracking-widest text-slate-400"
+        >
+          <span> N° {{ currentPokemon.id | number: '3.0' }} </span>
+          <span class="h-1 w-1 rounded-full bg-slate-600"></span>
+          <span>
+            {{ currentPokemon.generation }}
+          </span>
+          <span class="h-1 w-1 rounded-full bg-slate-600"></span>
+          <span class="px-2.5 py-1 text-sm font-bold tracking-wider">
+            {{ currentPokemon.region }}
+          </span>
+        </div>
+        <!-- Nome -->
+        <h1 class="mb-4 text-4xl font-black capitalize tracking-tight text-white">
+          {{ currentPokemon.name }}
+        </h1>
+
+        <!-- Tipos -->
+        <div class="flex flex-wrap gap-2">
+          @for (type of currentPokemon.types; track type.type.name) {
+            <span
+              class="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest shadow-lg"
+              [ngClass]="[getStyle(type.type.name).bg, getStyle(type.type.name).text]"
+            >
+              {{ getStyle(type.type.name).title }}
+            </span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

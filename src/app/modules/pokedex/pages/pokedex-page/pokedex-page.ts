@@ -17,7 +17,7 @@ export class PokedexPage implements OnInit {
   typeSelected: PokemonType | 'all' = 'all';
 
   constructor(
-    private api: PokemonService,
+    private service: PokemonService,
     private cdr: ChangeDetectorRef,
   ) {}
 
@@ -28,7 +28,7 @@ export class PokedexPage implements OnInit {
   buscarPokemons() {
     this.isLoading = true;
     this.typeSelected = 'all';
-    this.api.buscarPokemons().subscribe({
+    this.service.buscarPokemons().subscribe({
       next: (response) => {
         console.log(response);
         this.pokemons = response;
@@ -53,7 +53,7 @@ export class PokedexPage implements OnInit {
     if (type === 'all') {
       this.buscarPokemons();
     } else {
-      this.api.buscarPokemonsPorTipo(type).subscribe({
+      this.service.buscarPokemonsPorTipo(type).subscribe({
         next: (response) => {
           this.pokemons = response;
           this.isLoading = false;
@@ -68,6 +68,6 @@ export class PokedexPage implements OnInit {
   }
 
   getStyle(type: string) {
-    return this.api.getTypeStyle(type);
+    return this.service.getTypeStyle(type);
   }
 }

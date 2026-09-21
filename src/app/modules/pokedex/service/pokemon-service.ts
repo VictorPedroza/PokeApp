@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 
 import { ApiService } from '../../../core/service/api-service';
 
-import { Pokemon, PokemonResponse, PokemonType, PokemonTypeResponse } from '../../../shared/constants/pokemon/pokemon';
+import {
+  generations,
+  Pokemon,
+  PokemonResponse,
+  PokemonSpeciesResponse,
+  PokemonType,
+  PokemonTypeResponse,
+  regions,
+} from '../../../shared/constants/pokemon/pokemon';
 import { pokemonTypeStyles } from '../../../shared/constants/pokemon/styles';
 import { environment } from '../../../../environments/environment';
 
@@ -31,7 +39,19 @@ export class PokemonService {
   }
 
   buscarPokemon(pokemon: string): Observable<Pokemon> {
-    return this.api.get<Pokemon>(this.baseUrl, `pokemon/${pokemon}`);
+    return forkJoin({
+      pokemon: this.api.get<Pokemon>(this.baseUrl, `pokemon/${pokemon}`),
+      species: this.api.get<PokemonSpeciesResponse>(this.baseUrl, `pokemon-species/${pokemon}`),
+    }).pipe(
+      tap(() => console.log('forkJoin terminou')),
+      map(({ pokemon, species }) => {
+        return {
+          ...pokemon,
+          generation: generations[species.generation.name],
+          region: regions[species.generation.name],
+        };
+      }),
+    );
   }
 
   buscarPokemonsPorTipo(type: string): Observable<Pokemon[]> {
@@ -43,11 +63,11 @@ export class PokemonService {
 
         const subset = response.pokemon.slice(0, 20).map((p) => p.pokemon);
         const requests: Observable<Pokemon>[] = subset.map((pokemon) =>
-          this.buscarPokemon(pokemon.name)
+          this.buscarPokemon(pokemon.name),
         );
 
         return forkJoin(requests);
-      })
+      }),
     );
   }
 
