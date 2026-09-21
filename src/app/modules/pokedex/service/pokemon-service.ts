@@ -3,7 +3,7 @@ import { forkJoin, Observable, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../../core/service/api-service';
 
-import { Pokemon, PokemonResponse, PokemonType } from '../../../shared/constants/pokemon/pokemon';
+import { Pokemon, PokemonResponse, PokemonType, PokemonTypeResponse } from '../../../shared/constants/pokemon/pokemon';
 import { pokemonTypeStyles } from '../../../shared/constants/pokemon/styles';
 import { environment } from '../../../../environments/environment';
 
@@ -32,6 +32,23 @@ export class PokemonService {
 
   buscarPokemon(pokemon: string): Observable<Pokemon> {
     return this.api.get<Pokemon>(this.baseUrl, `pokemon/${pokemon}`);
+  }
+
+  buscarPokemonsPorTipo(type: string): Observable<Pokemon[]> {
+    return this.api.get<PokemonTypeResponse>(this.baseUrl, `type/${type}`).pipe(
+      switchMap((response) => {
+        if (!response.pokemon || response.pokemon.length === 0) {
+          return of([]);
+        }
+
+        const subset = response.pokemon.slice(0, 20).map((p) => p.pokemon);
+        const requests: Observable<Pokemon>[] = subset.map((pokemon) =>
+          this.buscarPokemon(pokemon.name)
+        );
+
+        return forkJoin(requests);
+      })
+    );
   }
 
   getTypeStyle(type: string) {

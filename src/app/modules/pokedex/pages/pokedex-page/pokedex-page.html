@@ -14,7 +14,7 @@
   </div>
 
   <section
-    class="shrink-0 group relative flex items-center border-b border-slate-700/40 px-4 py-5 gap-2"
+    class="shrink-0 group relative flex items-center gap-2 border-b border-slate-700/40 px-4 py-5"
   >
     <span
       class="cursor-pointer border-[0.5px] px-2 py-0.5 text-sm transition-all duration-200"
@@ -27,9 +27,10 @@
     >
       Todos
     </span>
-    <section class="flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-thin">
+
+    <section class="flex gap-2 overflow-x-auto whitespace-nowrap hide-scrollbar">
       <span
-        class="shrink-0 my-2 cursor-pointer border-[0.5px] px-2 py-0.5 text-sm transition-all duration-200"
+        class="my-2 shrink-0 cursor-pointer border-[0.5px] px-2 py-0.5 text-sm transition-all duration-200"
         [ngClass]="
           typeSelected === type
             ? [getStyle(type).bg, getStyle(type).text]

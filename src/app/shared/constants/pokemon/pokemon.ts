@@ -26,6 +26,16 @@ export interface PokemonResponse {
   }[];
 }
 
+// Interface para mapear o retorno do endpoint /type/{name}
+export interface PokemonTypeResponse {
+  pokemon: {
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }[];
+}
+
 export type PokemonType =
   | 'normal'
   | 'fighting'

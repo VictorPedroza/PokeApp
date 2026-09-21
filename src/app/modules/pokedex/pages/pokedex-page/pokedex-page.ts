@@ -44,14 +44,26 @@ export class PokedexPage implements OnInit {
   }
 
   filtrarTipo(type: PokemonType | 'all') {
+    if (this.typeSelected === type) return;
+
     this.typeSelected = type;
+    this.isLoading = true;
+    this.pokemons = [];
 
     if (type === 'all') {
-      this.pokemons = [...this.basePokemons];
+      this.buscarPokemons();
     } else {
-      this.pokemons = this.basePokemons.filter((pokemon) =>
-        pokemon.types.some((t) => t.type.name === type),
-      );
+      this.api.buscarPokemonsPorTipo(type).subscribe({
+        next: (response) => {
+          this.pokemons = response;
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error('Error: ', error);
+          this.isLoading = false;
+        },
+      });
     }
   }
 
