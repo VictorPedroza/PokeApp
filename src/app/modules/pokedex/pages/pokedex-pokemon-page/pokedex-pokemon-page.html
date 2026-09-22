@@ -100,12 +100,12 @@
       }
     </div>
   </div>
-}
-<div class="flex">
-  <div class="w-full overflow-x-auto pb-4 border-r border-white/10">
-    <pokedex-evolution-chain-component
-      [evolution]="currentPokemon.evolutionChain"
-    ></pokedex-evolution-chain-component>
+  <div class="flex sm:flex-row flex-col">
+    <div class="w-full overflow-x-auto pb-4 border-r border-white/10">
+      <pokedex-evolution-chain-component
+        [evolution]="currentPokemon.evolutionChain"
+      ></pokedex-evolution-chain-component>
+    </div>
+    <div class="w-full"></div>
   </div>
-  <div class="w-full"></div>
-</div>
+}

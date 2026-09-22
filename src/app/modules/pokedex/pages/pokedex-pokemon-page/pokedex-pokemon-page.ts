@@ -23,8 +23,17 @@ export class PokedexPokemonPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pokemon = this.route.snapshot.paramMap.get('pokemon')!;
-    this.buscarPokemon();
+    this.route.paramMap.subscribe((params) => {
+      const pokemon = params.get('pokemon');
+
+      if (!pokemon) {
+        this.error = true;
+        return;
+      }
+
+      this.pokemon = pokemon;
+      this.buscarPokemon();
+    });
   }
 
   private buscarPokemon(): void {

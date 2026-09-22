@@ -8,5 +8,11 @@ import { Router } from '@angular/router';
   templateUrl: './evolution-chain-component.html',
 })
 export class EvolutionChainComponent {
+  constructor(private router: Router) {}
+
   @Input({ required: true }) evolution!: EvolutionChain;
+
+  navigate(pokemon: string): void {
+  this.router.navigate(['/pokedex/pokemon', pokemon]);
+}
 }
