@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 
 import { ApiService } from '../../../core/service/api-service';
 
 import {
+  EvolutionChain,
+  EvolutionChainLink,
+  EvolutionChainResponse,
   generations,
   Pokemon,
   PokemonResponse,
@@ -43,13 +46,16 @@ export class PokemonService {
       pokemon: this.api.get<Pokemon>(this.baseUrl, `pokemon/${pokemon}`),
       species: this.api.get<PokemonSpeciesResponse>(this.baseUrl, `pokemon-species/${pokemon}`),
     }).pipe(
-      tap(() => console.log('forkJoin terminou')),
-      map(({ pokemon, species }) => {
-        return {
-          ...pokemon,
-          generation: generations[species.generation.name],
-          region: regions[species.generation.name],
-        };
+      switchMap(({ pokemon, species }) => {
+        const route = species.evolution_chain.url.replace(this.baseUrl, '');
+        return this.api.get<EvolutionChainResponse>(this.baseUrl, route).pipe(
+          map((evolutionChain) => ({
+            ...pokemon,
+            generation: generations[species.generation.name],
+            region: regions[species.generation.name],
+            evolutionChain: this.mapEvolutionChain(evolutionChain.chain),
+          })),
+        );
       }),
     );
   }
@@ -73,5 +79,21 @@ export class PokemonService {
 
   getTypeStyle(type: string) {
     return pokemonTypeStyles[type as PokemonType];
+  }
+
+  private mapEvolutionChain(chain: EvolutionChainLink): EvolutionChain {
+    const id = this.getPokemonIdFromUrl(chain.species.url);
+
+    return {
+      id,
+      name: chain.species.name,
+      sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+      evolvesTo: chain.evolves_to.map((evolution) => this.mapEvolutionChain(evolution)),
+    };
+  }
+
+  private getPokemonIdFromUrl(url: string): number {
+    const parts = url.split('/').filter(Boolean);
+    return Number(parts[parts.length - 1]);
   }
 }

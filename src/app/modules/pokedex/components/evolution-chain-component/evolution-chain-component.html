@@ -1,0 +1,35 @@
+<div class="flex flex-row items-center justify-center gap-2 sm:gap-6 py-2">
+  <!-- Pokémon atual -->
+  <div
+    class="group flex w-20 shrink-0 flex-col items-center transition-all duration-300 sm:w-32"
+  >
+    <div class="relative flex h-12 w-12 items-center justify-center rounded-xl sm:h-20 sm:w-20">
+      <img
+        [src]="evolution.sprite"
+        [alt]="evolution.name"
+        class="absolute h-16 w-16 max-w-none object-contain transition-transform duration-500 group-hover:scale-110 sm:h-24 sm:w-24"
+      />
+    </div>
+
+    <span class="mt-4 text-xs font-bold capitalize tracking-tight text-white sm:mt-5 sm:text-base">
+      {{ evolution.name }}
+    </span>
+
+    <span class="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-400 sm:text-xs">
+      N° {{ evolution.id | number: '3.0' }}
+    </span>
+  </div>
+
+  <!-- Evoluções -->
+  @if (evolution.evolvesTo.length > 0) {
+    <!-- Seta apontando para a direita -->
+    <div class="text-xl font-bold text-slate-600 sm:text-2xl">→</div>
+
+    <!-- Múltiplas evoluções -->
+    <div class="flex flex-col gap-3 sm:gap-4">
+      @for (nextEvolution of evolution.evolvesTo; track nextEvolution.id) {
+        <pokedex-evolution-chain-component [evolution]="nextEvolution" />
+      }
+    </div>
+  }
+</div>
