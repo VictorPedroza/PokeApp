@@ -1,0 +1,10 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-header',
+  standalone: false,
+  templateUrl: './header.html'
+})
+export class Header {
+    @Output() menuClick = new EventEmitter<void>();
+}

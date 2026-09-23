@@ -11,21 +11,18 @@ import {
   LucideX,
 } from '@lucide/angular';
 
-import { HeaderComponent } from './components/layout/header-component/header-component';
+import { Sidebar, Header } from './components';
+import { SidebarHead, SidebarFoot, SidebarItem } from './components/layout/sidebar/components';
 
 import { LoadingComponent } from './components/common/loading-component/loading-component';
-import { Sidebar } from './components/layout/sidebar/sidebar';
-import { SidebarHead } from './components/layout/sidebar/components/sidebar-head/sidebar-head';
-import { SidebarFoot } from './components/layout/sidebar/components/sidebar-foot/sidebar-foot';
-import { SidebarItem } from './components/layout/sidebar/components/sidebar-item/sidebar-item';
 @NgModule({
   declarations: [
-    HeaderComponent,
     LoadingComponent,
     Sidebar,
     SidebarHead,
     SidebarFoot,
     SidebarItem,
+    Header,
   ],
   imports: [
     CommonModule,
@@ -37,6 +34,6 @@ import { SidebarItem } from './components/layout/sidebar/components/sidebar-item
     LucideMenu,
     LucideX,
   ],
-  exports: [Sidebar, HeaderComponent, LoadingComponent],
+  exports: [Sidebar, Header, LoadingComponent],
 })
 export class SharedModule {}
