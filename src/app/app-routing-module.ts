@@ -19,6 +19,12 @@ const routes: Routes = [
     loadChildren: () =>
       import("./modules/region/region-module")
         .then(m => m.RegionModule)
+  },
+  {
+    path: "type",
+    loadChildren: () =>
+      import("./modules/type/type-module")
+        .then(m => m.TypeModule)
   }
 ];
 
