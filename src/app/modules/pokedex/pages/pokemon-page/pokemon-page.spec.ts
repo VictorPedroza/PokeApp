@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EvolutionChainComponent } from './evolution-chain-component';
+import { PokemonPage } from './pokemon-page';
 
-describe('EvolutionChainComponent', () => {
-  let component: EvolutionChainComponent;
-  let fixture: ComponentFixture<EvolutionChainComponent>;
+describe('PokemonPage', () => {
+  let component: PokemonPage;
+  let fixture: ComponentFixture<PokemonPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EvolutionChainComponent],
+      declarations: [PokemonPage],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EvolutionChainComponent);
+    fixture = TestBed.createComponent(PokemonPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

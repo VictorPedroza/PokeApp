@@ -2,7 +2,7 @@
   <!-- Pokémon atual -->
   <div
     class="group flex w-20 shrink-0 flex-col items-center transition-all duration-300 sm:w-32"
-      (click)="navigate(evolution.name)"
+    (click)="navigate(evolution.name)"
   >
     <div class="relative flex h-24 w-24 items-center justify-center rounded-xl sm:h-20 sm:w-20">
       <img
@@ -16,7 +16,9 @@
       {{ evolution.name }}
     </span>
 
-    <span class="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-400 sm:text-xs">
+    <span
+      class="mt-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-400 sm:text-xs"
+    >
       N° {{ evolution.id | number: '3.0' }}
     </span>
   </div>
@@ -29,7 +31,7 @@
     <!-- Múltiplas evoluções -->
     <div class="flex flex-col gap-3 sm:gap-4">
       @for (nextEvolution of evolution.evolvesTo; track nextEvolution.id) {
-        <pokedex-evolution-chain-component [evolution]="nextEvolution" />
+        <pokemon-evolution-chain [evolution]="nextEvolution" />
       }
     </div>
   }

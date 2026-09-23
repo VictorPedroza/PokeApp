@@ -5,11 +5,11 @@ import { PokemonService } from '../../service/pokemon-service';
 import { Pokemon } from '../../../../shared/constants/pokemon/pokemon';
 
 @Component({
-  selector: 'app-pokedex-pokemon-page',
+  selector: 'pokemon-page',
   standalone: false,
-  templateUrl: './pokedex-pokemon-page.html',
+  templateUrl: './pokemon-page.html'
 })
-export class PokedexPokemonPage implements OnInit {
+export class PokemonPage implements OnInit {
   isLoading = false;
   error = false;
 

@@ -1,5 +1,5 @@
 @if (isLoading) {
-  <loading-component></loading-component>
+  <loading></loading>
 } @else if (error) {
   <div class="flex min-h-100 items-center justify-center">
     <div class="text-center">
@@ -100,11 +100,11 @@
       }
     </div>
   </div>
+
+  <!-- Evoluções -->
   <div class="flex sm:flex-row flex-col mt-4">
     <div class="w-full overflow-x-auto pb-4 border-r border-white/10">
-      <pokedex-evolution-chain-component
-        [evolution]="currentPokemon.evolutionChain"
-      ></pokedex-evolution-chain-component>
+      <pokemon-evolution-chain [evolution]="currentPokemon.evolutionChain" />
     </div>
   </div>
 }
