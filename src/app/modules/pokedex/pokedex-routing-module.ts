@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PokedexPage, PokemonPage } from './pages';
 
 const routes: Routes = [
-  { path: "", component: PokedexPage },
-  { path: "pokemon/:pokemon", component: PokemonPage }
+  { path: '', component: PokedexPage },
+  { path: 'pokemon/:pokemon', component: PokemonPage },
 ];
 
 @NgModule({

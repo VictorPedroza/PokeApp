@@ -1,0 +1,43 @@
+<div class="flex min-h-100 justify-center px-4">
+  <div class="text-center">
+    <!-- Pokébola -->
+    <div class="relative mx-auto mb-8 w-40">
+      <div
+        class="relative mx-auto h-32 w-32 animate-bounce overflow-hidden rounded-full border-4 border-slate-900 shadow-2xl shadow-red-500/30"
+      >
+        <!-- metade de cima -->
+        <div class="absolute inset-x-0 top-0 h-1/2 bg-red-500"></div>
+        <!-- metade de baixo -->
+        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-slate-100"></div>
+        <!-- faixa central -->
+        <div class="absolute inset-x-0 top-1/2 h-3 -translate-y-1/2 bg-slate-900"></div>
+        <!-- botão central -->
+        <div
+          class="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-slate-900 bg-slate-100 text-lg font-black text-slate-900"
+        >
+          ?
+        </div>
+      </div>
+
+      <!-- sombra no chão -->
+      <div class="mx-auto mt-3 h-2 w-24 animate-pulse rounded-full bg-black/40 blur-sm"></div>
+    </div>
+
+    <!-- Textos -->
+    <p class="mb-2 text-xs font-semibold tracking-[0.3em] text-red-400 uppercase">Erro 404</p>
+
+    <h1 class="text-3xl font-extrabold text-slate-100">Pokémon não encontrado!</h1>
+
+    <p class="mx-auto mt-3 max-w-sm text-sm text-slate-400">
+      Ele fugiu da Pokébola ou o nome está errado. Verifique o que você digitou e tente novamente.
+    </p>
+
+    <!-- Ação -->
+    <a
+      routerLink="/"
+      class="mt-8 inline-flex items-center gap-2 rounded-full bg-red-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition hover:scale-105 hover:bg-red-400 active:scale-95"
+    >
+      ← Voltar para a Pokédex
+    </a>
+  </div>
+</div>

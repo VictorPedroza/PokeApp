@@ -13,9 +13,10 @@ import {
 
 import { Sidebar, Header, Loading } from './components';
 import { SidebarHead, SidebarFoot, SidebarItem } from './components/layout/sidebar/components';
+import { NotFound } from './components/common/not-found/not-found';
 
 @NgModule({
-  declarations: [Sidebar, SidebarHead, SidebarFoot, SidebarItem, Header, Loading],
+  declarations: [Sidebar, SidebarHead, SidebarFoot, SidebarItem, Header, Loading, NotFound],
   imports: [
     CommonModule,
     RouterModule,
@@ -26,6 +27,6 @@ import { SidebarHead, SidebarFoot, SidebarItem } from './components/layout/sideb
     LucideMenu,
     LucideX,
   ],
-  exports: [Sidebar, Header, Loading],
+  exports: [Sidebar, Header, Loading, NotFound],
 })
 export class SharedModule {}

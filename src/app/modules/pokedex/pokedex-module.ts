@@ -9,13 +9,7 @@ import { PokemonPage, PokedexPage } from './pages';
 import { PokemonCard, PokemonEvolution, PokemonHero } from './components';
 
 @NgModule({
-  declarations: [
-    PokedexPage,
-    PokemonPage,
-    PokemonCard,
-    PokemonHero,
-    PokemonEvolution,
-  ],
+  declarations: [PokedexPage, PokemonPage, PokemonCard, PokemonHero, PokemonEvolution],
   imports: [CommonModule, SharedModule, RouterModule, PokedexRoutingModule],
 })
 export class PokedexModule {}
