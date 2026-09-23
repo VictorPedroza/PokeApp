@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PokemonService } from '../../service/pokemon-service';
-import { Pokemon, PokemonType, PokemonTypes } from '../../../../shared/constants/pokemon/pokemon';
+import { Pokemon, PokemonType } from '../../../../shared/constants/pokemon/pokemon';
+import { PokemonTypes } from '../../types/pokemon';
 
 @Component({
   selector: 'app-pokedex-page',

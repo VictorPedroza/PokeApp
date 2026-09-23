@@ -5,19 +5,15 @@ import { ApiService } from '../../../core/service/api-service';
 
 import {
   EvolutionChain,
-  EvolutionChainLink,
-  EvolutionChainResponse,
   generations,
   Pokemon,
-  PokemonResponse,
-  PokemonSpeciesResponse,
   PokemonType,
-  PokemonTypeResponse,
   regions,
 } from '../../../shared/constants/pokemon/pokemon';
 
 import { environment } from '../../../../environments/environment';
 import { pokemonTypeStyles } from '../types/styles';
+import { EvolutionChainLink, EvolutionChainResponse, PokemonResponse, PokemonSpeciesResponse, PokemonTypeResponse } from '../types/pokemon';
 
 @Injectable({
   providedIn: 'root',

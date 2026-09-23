@@ -20,48 +20,11 @@ export interface Pokemon {
   evolutionChain: EvolutionChain;
 }
 
-export interface PokemonResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: {
-    name: string;
-  }[];
-}
-
-export interface PokemonTypeResponse {
-  pokemon: {
-    pokemon: {
-      name: string;
-      url: string;
-    };
-  }[];
-}
-
-export interface PokemonSpeciesResponse {
-  generation: {
-    name: string;
-  };
-  evolution_chain: { url: string };
-}
-
 export interface EvolutionChain {
   id: number;
   name: string;
   sprite: string;
   evolvesTo: EvolutionChain[];
-}
-
-export interface EvolutionChainResponse {
-  chain: EvolutionChainLink;
-}
-
-export interface EvolutionChainLink {
-  species: {
-    name: string;
-    url: string;
-  };
-  evolves_to: EvolutionChainLink[];
 }
 
 export const regions: Record<string, string> = {
@@ -107,24 +70,3 @@ export type PokemonType =
   | 'dragon'
   | 'dark'
   | 'fairy';
-
-export const PokemonTypes: PokemonType[] = [
-  'normal',
-  'fighting',
-  'flying',
-  'poison',
-  'ground',
-  'rock',
-  'bug',
-  'ghost',
-  'steel',
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'psychic',
-  'ice',
-  'dragon',
-  'dark',
-  'fairy',
-];
