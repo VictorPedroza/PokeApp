@@ -15,8 +15,9 @@ import {
   PokemonTypeResponse,
   regions,
 } from '../../../shared/constants/pokemon/pokemon';
-import { pokemonTypeStyles } from '../../../shared/constants/pokemon/styles';
+
 import { environment } from '../../../../environments/environment';
+import { pokemonTypeStyles } from '../types/styles';
 
 @Injectable({
   providedIn: 'root',

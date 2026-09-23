@@ -2,6 +2,7 @@ export interface TypeStyle {
   title: string;
   bg: string;
   border: string;
+  bar: string;
   text: string;
 }
 
@@ -10,120 +11,140 @@ export const pokemonTypeStyles: Record<string, TypeStyle> = {
     title: 'Normal',
     bg: 'bg-slate-400/20',
     border: 'border-slate-400',
+    bar: 'bg-slate-400',
     text: 'text-slate-500',
   },
   fighting: {
     title: 'Lutador',
     bg: 'bg-red-700/20',
     border: 'border-red-700',
+    bar: 'bg-red-700',
     text: 'text-red-700',
   },
   flying: {
     title: 'Voador',
     bg: 'bg-sky-400/20',
     border: 'border-sky-400',
+    bar: 'bg-sky-400',
     text: 'text-sky-500',
   },
   poison: {
     title: 'Veneno',
     bg: 'bg-purple-500/20',
     border: 'border-purple-500',
+    bar: 'bg-purple-500',
     text: 'text-purple-500',
   },
   ground: {
     title: 'Terrestre',
     bg: 'bg-amber-600/20',
     border: 'border-amber-600',
+    bar: 'bg-amber-600',
     text: 'text-amber-600',
   },
   rock: {
     title: 'Pedra',
     bg: 'bg-stone-600/20',
     border: 'border-stone-600',
+    bar: 'bg-stone-600',
     text: 'text-stone-600',
   },
   bug: {
     title: 'Inseto',
     bg: 'bg-lime-500/20',
     border: 'border-lime-500',
+    bar: 'bg-lime-500',
     text: 'text-lime-600',
   },
   ghost: {
     title: 'Fantasma',
     bg: 'bg-indigo-800/20',
     border: 'border-indigo-800',
+    bar: 'bg-indigo-800',
     text: 'text-indigo-600',
   },
   steel: {
     title: 'Aço',
     bg: 'bg-slate-500/20',
     border: 'border-slate-500',
+    bar: 'bg-slate-500',
     text: 'text-slate-500',
   },
   fire: {
     title: 'Fogo',
     bg: 'bg-orange-500/20',
     border: 'border-orange-500',
+    bar: 'bg-orange-500',
     text: 'text-orange-600',
   },
   water: {
     title: 'Água',
     bg: 'bg-blue-500/20',
     border: 'border-blue-500',
+    bar: 'bg-blue-500',
     text: 'text-blue-600',
   },
   grass: {
     title: 'Grama',
     bg: 'bg-green-500/20',
     border: 'border-green-500',
+    bar: 'bg-green-500',
     text: 'text-green-600',
   },
   electric: {
     title: 'Elétrico',
     bg: 'bg-yellow-400/20',
     border: 'border-yellow-400',
+    bar: 'bg-yellow-400',
     text: 'text-yellow-600',
   },
   psychic: {
     title: 'Psíquico',
     bg: 'bg-pink-500/20',
     border: 'border-pink-500',
+    bar: 'bg-pink-500',
     text: 'text-pink-500',
   },
   ice: {
     title: 'Gelo',
     bg: 'bg-cyan-300/20',
     border: 'border-cyan-300',
+    bar: 'bg-cyan-300',
     text: 'text-cyan-500',
   },
   dragon: {
     title: 'Dragão',
     bg: 'bg-indigo-600/20',
     border: 'border-indigo-600',
+    bar: 'bg-indigo-600',
     text: 'text-indigo-700',
   },
   dark: {
     title: 'Sombrio',
     bg: 'bg-zinc-800/20',
     border: 'border-zinc-800',
+    bar: 'bg-zinc-800',
     text: 'text-zinc-600',
   },
   fairy: {
     title: 'Fada',
     bg: 'bg-fuchsia-300/20',
     border: 'border-fuchsia-300',
+    bar: 'bg-fuchsia-300',
     text: 'text-fuchsia-700',
   },
   stellar: {
     title: 'Estelar',
     bg: 'bg-teal-400/20',
     border: 'border-teal-400',
+    bar: 'bg-teal-400',
     text: 'text-teal-500',
   },
   unknown: {
     title: 'Desconhecido',
     bg: 'bg-gray-500/20',
     border: 'border-gray-500',
+    bar: 'bg-gray-500',
     text: 'text-gray-500',
   },
 } as const;
