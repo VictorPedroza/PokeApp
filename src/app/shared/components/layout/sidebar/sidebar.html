@@ -1,0 +1,45 @@
+<div
+  class="fixed inset-y-0 left-0 z-50 flex w-64 -translate-x-full flex-col border-r border-gray-500/20 md:bg-slate-800/30 bg-slate-800 transition-transform duration-300 ease-in-out md:translate-x-0"
+  [class.translate-x-0]="isOpen"
+>
+  <!-- Header -->
+  <sidebar-head></sidebar-head>
+
+  <!-- Navegação -->
+  <nav class="flex flex-1 flex-col overflow-y-auto pt-4">
+    <!-- Explorar -->
+    <div class="flex flex-col">
+      <h1 class="pl-3 pb-0.5 text-[12px] tracking-[0.2em] text-slate-600 uppercase">Explorar</h1>
+      <!-- Dashboard -->
+      <sidebar-item label="Dashboard" routerLink="/">
+        <svg lucideHome></svg>
+      </sidebar-item>
+
+      <!-- Pokedex -->
+      <sidebar-item label="Pokedex" routerLink="/pokedex" [exact]="false">
+        <svg lucideBookOpen></svg>
+      </sidebar-item>
+
+      <!-- Região -->
+      <sidebar-item label="Regiões" routerLink="/region">
+        <svg lucideMap></svg>
+      </sidebar-item>
+
+      <!-- Tipos -->
+      <sidebar-item label="Tipos" routerLink="/type">
+        <svg lucideLayers></svg>
+      </sidebar-item>
+    </div>
+    <!-- Jogos -->
+    <div class="flex flex-col">
+      <h1 class="pl-3 pb-0.5 text-[12px] tracking-[0.2em] text-slate-600 uppercase">Jogos</h1>
+    </div>
+    <!-- Pessoal -->
+    <div class="flex flex-col">
+      <h1 class="pl-3 pb-0.5 text-[12px] tracking-[0.2em] text-slate-600 uppercase">Pessoal</h1>
+    </div>
+  </nav>
+
+  <!-- Footer -->
+  <sidebar-foot></sidebar-foot>
+</div>

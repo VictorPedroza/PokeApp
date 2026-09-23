@@ -6,7 +6,7 @@
     (click)="closeSidebar()"
   ></div>
 
-  <sidebar-component [isOpen]="sidebarOpen()" (closeMenu)="closeSidebar()"></sidebar-component>
+  <app-sidebar [isOpen]="sidebarOpen()" (closeMenu)="closeSidebar()"></app-sidebar>
 
   <div class="flex h-screen flex-col md:ml-64">
     <header-component (menuClick)="toggleSidebar()"></header-component>

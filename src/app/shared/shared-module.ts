@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { SidebarComponent } from './components/layout/sidebar-component/sidebar-component';
-import { HeaderComponent } from './components/layout/header-component/header-component';
-import { SidebarItem } from './components/layout/sidebar-component/sidebar-item/sidebar-item';
-
 import {
   LucideBookOpen,
   LucideHome,
@@ -14,10 +10,23 @@ import {
   LucideMenu,
   LucideX,
 } from '@lucide/angular';
-import { LoadingComponent } from './components/common/loading-component/loading-component';
 
+import { HeaderComponent } from './components/layout/header-component/header-component';
+
+import { LoadingComponent } from './components/common/loading-component/loading-component';
+import { Sidebar } from './components/layout/sidebar/sidebar';
+import { SidebarHead } from './components/layout/sidebar/components/sidebar-head/sidebar-head';
+import { SidebarFoot } from './components/layout/sidebar/components/sidebar-foot/sidebar-foot';
+import { SidebarItem } from './components/layout/sidebar/components/sidebar-item/sidebar-item';
 @NgModule({
-  declarations: [SidebarComponent, HeaderComponent, SidebarItem, LoadingComponent],
+  declarations: [
+    HeaderComponent,
+    LoadingComponent,
+    Sidebar,
+    SidebarHead,
+    SidebarFoot,
+    SidebarItem,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -28,6 +37,6 @@ import { LoadingComponent } from './components/common/loading-component/loading-
     LucideMenu,
     LucideX,
   ],
-  exports: [SidebarComponent, HeaderComponent, LoadingComponent],
+  exports: [Sidebar, HeaderComponent, LoadingComponent],
 })
 export class SharedModule {}
